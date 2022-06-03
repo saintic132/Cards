@@ -1,0 +1,105 @@
+.registration__container {
+    max-width: 415px;
+    width: 100%;
+    height: 100%;
+    background-color: #F9F9FE;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.registration__edit_body {
+    padding: 30px;
+    max-width: 415px;
+    max-height: 540px;
+    display: flex;
+    flex-direction: column;
+}
+.registration__edit_body h1, h2 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    align-self: center;
+}
+.registration__edit {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.registration__edit span{
+    color: #F1453D;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+}
+.registration__edit > label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #080937;
+}
+.registration__edit_buttons {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.registration__edit_input {
+    margin-top: 8px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(36, 37, 74, .2);
+    padding: 5px 0;
+}
+
+.registration__edit_input:focus {
+    outline: none;
+}
+
+.registration__edit_buttonCancel {
+    width: 125px;
+    height: 36px;
+    border: none;
+    border-radius: 30px;
+    background: #D7D8EF;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #21268F;
+    opacity: 0.8;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.registration__edit_buttonRegistration {
+    width: 125px;
+    height: 36px;
+    border: none;
+    border-radius: 30px;
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.registration__edit_buttonCancel:hover, .registration__edit_buttonRegistration:hover {
+    cursor: pointer;
+}
+
+.registration__edit_buttonCancel:active, .registration__edit_buttonRegistration:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+button:disabled,
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #6666
+}

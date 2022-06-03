@@ -1,0 +1,9 @@
+.header404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header404 > div {
+    font-size: 60px;
+}
