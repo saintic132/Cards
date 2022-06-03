@@ -10,10 +10,10 @@
 .login__edit_body {
     padding: 30px;
     max-width: 415px;
-    max-height: 540px;
     display: flex;
     flex-direction: column;
 }
+
 .login__edit_body h2 {
     font-weight: 600;
     font-size: 22px;
@@ -32,12 +32,14 @@
     display: flex;
     flex-direction: column;
 }
+
 .login__edit span{
     color: #F1453D;
     margin-top: 2px;
     display: flex;
     flex-direction: column;
 }
+
 .login__edit > label {
     font-style: normal;
     font-weight: 400;
@@ -45,6 +47,7 @@
     line-height: 20px;
     color: #24254A;
 }
+
 .login__edit_buttons {
     margin-top: 100px;
     display: flex;
@@ -73,12 +76,25 @@
 }
 
 .login__forgotPass {
-    margin-top: 50px;
+    margin: 50px 20px 0 0;
     text-align: right;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
+    color: #2D2E46;
+}
+
+.login__forgotPass > a {
+    text-decoration: none;
+    color: #2D2E46;
+}
+
+.login__forgotPass > a:hover {
+    text-decoration: underline;
+}
+
+.login__forgotPass > a:visited {
     color: #2D2E46;
 }
 
@@ -99,6 +115,7 @@
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
+
 .login__edit_buttonLogin:hover {
     cursor: pointer;
 }
@@ -107,11 +124,51 @@
     box-shadow: 0 1px #666;
     transform: translateY(1px);
 }
+
 button:disabled,
 button[disabled] {
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #6666
+}
+
+.login_sign_up_container {
+    margin-top: 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__sign_up_account {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: #2D2E46;
+    opacity: 0.5;
+}
+
+.login__sign_up {
+    margin-top: 11px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #21268F;
+    text-decoration: none;
+}
+
+.login__sign_up > a {
+    text-decoration: none;
+    color: #2D2E46;
+}
+
+.login__sign_up > a:hover {
+    text-decoration: underline;
+}
+
+.login__sign_up > a:visited {
+    color: #2D2E46;
 }
 
 

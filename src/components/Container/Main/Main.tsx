@@ -24,7 +24,7 @@ export function Main() {
                     element={<Login/>}
                 />
                 <Route
-                    path='registration'
+                    path='register'
                     element={<Registration/>}
                 />
                 <Route

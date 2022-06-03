@@ -99,6 +99,14 @@ export const Login = () => {
                         </div>
                     </Form>
                 </Formik>
+                <div className={style.login_sign_up_container}>
+                    <div className={style.login__sign_up_account}>
+                        Don't have an account?
+                    </div>
+                    <div className={style.login__sign_up}>
+                        <NavLink to='register'>Sign Up</NavLink>
+                    </div>
+                </div>
             </div>
         </div>
     )
