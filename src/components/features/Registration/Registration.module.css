@@ -20,8 +20,15 @@
     line-height: 33px;
     align-self: center;
 }
+
+.registration__form_body {
+    width: 100%;
+    margin-top: 40px;
+}
+
 .registration__edit {
-    margin-top: 15px;
+    position: relative;
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
 }
@@ -54,6 +61,15 @@
 
 .registration__edit_input:focus {
     outline: none;
+}
+
+.registration__show_hide_pass {
+    cursor: pointer;
+    position: absolute;
+    bottom: 11px;
+    height: 16px;
+    right: 0;
+    top: 33px;
 }
 
 .registration__edit_buttonCancel {
@@ -102,4 +118,28 @@ button[disabled] {
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #6666
+}
+
+
+/*Error field show*/
+
+.registration_error {
+    color: red;
+}
+
+.registration_server_error {
+    max-width: 250px;
+    width: 100%;
+    color: red;
+    position: relative;
+    top: 50px;
+    left: 75px;
+}
+
+.fakeDivAvatarUrl {
+    height: 35px;
+}
+
+.fakeDiv {
+    height: 21px;
 }

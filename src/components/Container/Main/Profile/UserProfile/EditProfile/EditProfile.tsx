@@ -65,7 +65,7 @@ export const EditProfile = memo(({profileData, clickToEditProfile}: EditProfileP
                         <h2>Personal Information</h2>
                         <img
                             className={style.editProfile__img_avatar}
-                            src={profileData.avatar === undefined || profileData.avatar === 'email' ? noAvatar : profileData.avatar}
+                            src={profileData.avatar ? noAvatar : profileData.avatar}
                             alt="avatar"
                             onClick={() => setShowUploadAvatar(!showUploadAvatar)}
                         />

@@ -23,7 +23,7 @@ export const Login = () => {
         validationSchema: Yup.object({
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string()
-                .min(5, 'Must be 5 characters at least')
+                .min(8, 'Must be 5 characters at least')
                 .required('Required'),
         }),
         onSubmit: values => {

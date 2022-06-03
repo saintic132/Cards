@@ -1,6 +1,6 @@
 import {TypedDispatch} from "../store";
-import {authAPI, LoginType, UpdatedUser, userAPI} from "../../common/c1-API/API";
-import {registrationAPI, RegistrationParamsType} from "../../common/c1-API/RegistrationAPI";
+import {authAPI, LoginType, User, userAPI} from "../../common/c1-API/API";
+import {registrationAPI} from "../../common/c1-API/RegistrationAPI";
 import {Dispatch} from "redux";
 
 // types
@@ -86,7 +86,7 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
     }
 }
 // actions
-export const setLoggedInAC = (data: UpdatedUser, isLoggedIn: boolean) => ({
+export const setLoggedInAC = (data: User, isLoggedIn: boolean) => ({
     type: ACTIONS_PROFILE_TYPE.SET_IS_LOGGED_IN,
     data,
     isLoggedIn
@@ -103,7 +103,7 @@ export const setEditProfileAC = (editMode: boolean) => ({
     type: ACTIONS_PROFILE_TYPE.CHANGE_EDITMODE_PROFILE,
     editMode
 } as const)
-export const setDisableButtonSaveButtonEditProfileAC = (disableButton: boolean) => ({
+export const setDisableButtonAC = (disableButton: boolean) => ({
     type: ACTIONS_PROFILE_TYPE.DISABLE_BUTTON,
     disableButton
 } as const)
@@ -117,7 +117,7 @@ export const setErrorToProfileAC = (error: string | null) => ({
 type LoginActionType = ReturnType<typeof setLoggedInAC>
 type EditProfileType = ReturnType<typeof editProfileAC>
 type SetEditProfileType = ReturnType<typeof setEditProfileAC>
-type SetDisableButtonSaveButtonEditProfileType = ReturnType<typeof setDisableButtonSaveButtonEditProfileAC>
+type SetDisableButtonSaveButtonEditProfileType = ReturnType<typeof setDisableButtonAC>
 type SetErrorToProfileType = ReturnType<typeof setErrorToProfileAC>
 type SetRegistrationCompleteType = ReturnType<typeof setRegistrationCompletedAC>
 
@@ -134,26 +134,35 @@ export const loginTC = (data: LoginType) => {
     return (dispatch: TypedDispatch) => {
         authAPI.login(data)
             .then((res) => {
-                dispatch(setLoggedInAC(res.data.updatedUser, true))
+                debugger
+                dispatch(setLoggedInAC(res.data, true))
             })
-            .catch((error) => {
-                alert(error)
+            .catch(err => {
+                if (err.response.data) {
+                    dispatch(setErrorToProfileAC(err.response.data.error))
+                } else {
+                    dispatch(setErrorToProfileAC(err.message))
+                }
             })
     }
 }
 
-export const registrNewUserTC = (data: RegistrationParamsType) => (dispatch: Dispatch) => {
-    registrationAPI.registration(data)
+export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
+    registrationAPI.registration(email, password)
         .then(res => {
             dispatch(setRegistrationCompletedAC(true))
         })
         .catch(err => {
-            dispatch(setErrorToProfileAC(err.response.data.error))
+            if (err.response.data) {
+                dispatch(setErrorToProfileAC(err.response.data.error))
+            } else {
+                dispatch(setErrorToProfileAC(err.message))
+            }
         })
 }
 
 export const editProfileThunk = (name: string, avatar?: string) => (dispatch: TypedDispatch) => {
-    dispatch(setDisableButtonSaveButtonEditProfileAC(true))
+    dispatch(setDisableButtonAC(true))
     dispatch(setErrorToProfileAC(null))
     userAPI.editProfile(name, avatar)
         .then(res => {
@@ -170,7 +179,7 @@ export const editProfileThunk = (name: string, avatar?: string) => (dispatch: Ty
             }
         })
         .finally(() => {
-            dispatch(setDisableButtonSaveButtonEditProfileAC(false))
+            dispatch(setDisableButtonAC(false))
         })
 }
 

@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const userAPI = {
     editProfile(name: string, avatar?: string) {
-        return instance.put<{ name: string, avatar?: string }, AxiosResponse<ResponseType<UpdatedUser>>>('/auth/me', {
+        return instance.put<{ name: string, avatar?: string }, AxiosResponse<ResponseType<User>>>('/auth/me', {
             name,
             avatar
         })
@@ -16,11 +16,11 @@ export const userAPI = {
 
 export const authAPI = {
     login(data: LoginType) {
-        return instance.post<LoginType, AxiosResponse<ResponseType<UpdatedUser>>>(`/auth/login`, data)
+        return instance.post<LoginType, AxiosResponse<User>>(`/auth/login`, data)
     },
 }
 
-export type UpdatedUser = {
+export type User = {
     _id: string;
     email: string;
     name: string;

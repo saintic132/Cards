@@ -13,7 +13,7 @@ export const UserProfile = memo(({name, avatar, clickToEditProfile}: UserProfile
     return (
         <div className={style.userProfile}>
             <img
-                src={avatar === undefined || avatar === 'email' ? noAvatar: avatar}
+                src={avatar ? noAvatar: avatar}
                 alt="avatar"
             />
             <div className={style.userProfile__name}>
