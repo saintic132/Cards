@@ -15,8 +15,8 @@ export const userAPI = {
 }
 
 export const authAPI = {
-    login(data: LoginType) {
-        return instance.post<LoginType, AxiosResponse<User>>(`/auth/login`, data)
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<{email: string, password: string, rememberUser: boolean}, AxiosResponse<User>>(`/auth/login`, {email, password, rememberMe})
     },
 }
 

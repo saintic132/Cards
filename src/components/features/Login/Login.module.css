@@ -7,65 +7,132 @@
     border-radius: 8px;
 }
 
-.login__body {
+.login__edit_body {
     padding: 30px;
     max-width: 415px;
     max-height: 540px;
-}
-
-.title {
-    text-align: center;
-}
-
-.subtitle {
-    padding-top: 32px;
-    text-align: center;
-}
-
-.form {
     display: flex;
     flex-direction: column;
-    padding-top: 38px;
+}
+.login__edit_body h2 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    align-self: center;
 }
 
-label {
+.login__form_body {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.login__edit {
+    position: relative;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+.login__edit span{
+    color: #F1453D;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+}
+.login__edit > label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
     color: #24254A;
-    opacity: 0.5;
+}
+.login__edit_buttons {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
 }
 
-.inputText {
-    margin-top: 24px;
+.login__edit_input {
+    margin-top: 8px;
+    width: 100%;
     border: none;
     border-bottom: 2px solid rgba(36, 37, 74, .2);
     padding: 5px 0;
+}
+
+.login__edit_input:focus {
     outline: none;
 }
 
-.inputCheckbox {
-    margin-top: 24px;
+.login__show_hide_pass {
+    cursor: pointer;
+    position: absolute;
+    bottom: 11px;
+    height: 16px;
+    right: 0;
+    top: 33px;
 }
 
-.forgotPass {
+.login__forgotPass {
+    margin-top: 50px;
     text-align: right;
-    margin-top: 24px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2D2E46;
 }
 
-.btnContainer {
-    text-align: center;
- }
-
-.btn {
-    margin-top: 92px;
-    width: 266px;
+.login__edit_buttonLogin {
+    max-width: 266px;
+    width: 100%;
     height: 36px;
-    background: #21268F;
+    border: none;
     border-radius: 30px;
-    color: #ECECF9;
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-style: normal;
+    font-weight: 500;
     font-size: 16px;
-    align-items: center;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.login__edit_buttonLogin:hover {
+    cursor: pointer;
 }
 
-.helpBlock {
-    text-align: center;
-    margin-top: 31px;
+.login__edit_buttonLogin:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+button:disabled,
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #6666
+}
+
+
+/*Error field show*/
+
+.login_error {
+    color: red;
+}
+
+.login_server_error {
+    max-width: 250px;
+    width: 100%;
+    color: red;
+    margin: 10px 0;
+}
+
+.fakeDivAvatarUrl {
+    height: 35px;
+}
+
+.fakeDiv {
+    margin: 10px 0;
+    height: 21px;
 }

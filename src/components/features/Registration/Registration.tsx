@@ -62,10 +62,10 @@ export const Registration = () => {
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
     })
 
-
     const onSubmit = (values: FormikInputType) => {
         dispatch(registrNewUserTC(values.email, values.password))
     }
+
     return (
         <div className={style.registration__container}>
             <div className={style.registration__edit_body}>
@@ -151,5 +151,5 @@ export const Registration = () => {
                 </Formik>
             </div>
         </div>
-    );
-};
+    )
+}

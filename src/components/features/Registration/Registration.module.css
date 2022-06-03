@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
 }
-.registration__edit_body h1, h2 {
+.registration__edit_body h2 {
     font-weight: 600;
     font-size: 22px;
     line-height: 33px;
@@ -41,9 +41,9 @@
 .registration__edit > label {
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
-    color: #080937;
+    color: #24254A;
 }
 .registration__edit_buttons {
     margin-top: 100px;
@@ -131,9 +131,7 @@ button[disabled] {
     max-width: 250px;
     width: 100%;
     color: red;
-    position: relative;
-    top: 50px;
-    left: 75px;
+    margin: 10px 0;
 }
 
 .fakeDivAvatarUrl {
@@ -141,5 +139,6 @@ button[disabled] {
 }
 
 .fakeDiv {
+    margin: 10px 0;
     height: 21px;
 }

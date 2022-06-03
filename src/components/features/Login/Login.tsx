@@ -1,72 +1,104 @@
-import SuperInputText from "../../../common/c4-common_buttons/c1-SuperInputText/SuperInputText"
-import SuperCheckbox
-    from "../../../common/c4-common_buttons/c3-SuperCheckbox/SuperCheckbox";
 import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import style from './Login.module.css'
-import {ForgotPass} from "../ForgotPass/ForgotPass";
-import {useFormik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import {loginTC} from "../../../store/reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {Navigate} from "react-router-dom";
 import * as Yup from 'yup';
+import show_pass from "../../../assets/a2-show_hide_password/show.png";
+import hidden_pass from "../../../assets/a2-show_hide_password/hidden.png";
+import React, {useState} from "react";
+import { NavLink } from "react-router-dom";
+
+
+type FormikInputType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+}
 
 export const Login = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
+    const register = useAppSelector(state => state.profile)
+    const [showPass, setShowPass] = useState<boolean>(false);
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
-            password: Yup.string()
-                .min(8, 'Must be 5 characters at least')
-                .required('Required'),
-        }),
-        onSubmit: values => {
-            dispatch(loginTC(values))
-            formik.resetForm()
-        },
+    const initialValues: FormikInputType = {
+        email: '',
+        password: '',
+        rememberMe: false
+    }
+    const validate = Yup.object({
+        email: Yup.string().required('Required').email('must be a valid email'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Too short - should be 8 chars minimum.')
     })
 
-    if (isLoggedIn) {
-        return <Navigate to={'/'}/>
+    const onSubmit = (values: FormikInputType) => {
+        dispatch(loginTC(values.email, values.password, values.rememberMe))
     }
 
     return (
         <div className={style.login__container}>
-            <div className={style.login__body}>
-                <h1 className={style.title}>It-incubator</h1>
-                <h2 className={style.subtitle}>Sign In</h2>
-
-                <form className={style.form} onSubmit={formik.handleSubmit}>
-                    <label>Email</label>
-                    <SuperInputText className={style.inputText}
-                                    placeholder='Enter your email' {...formik.getFieldProps('email')}/>
-                    {formik.touched.email && formik.errors.email &&
-                    <div style={{color: 'red'}}>{formik.errors.email}</div>}
-
-                    <label>Password</label>
-                    <SuperInputText className={style.inputText}
-                                    placeholder='Enter your password' {...formik.getFieldProps('password')}/>
-                    {formik.touched.password && formik.errors.password &&
-                    <div style={{color: 'red'}}>{formik.errors.password}</div>}
-
-                    <SuperCheckbox className={style.inputCheckbox} {...formik.getFieldProps('rememberMe')}>Remember
-                        me</SuperCheckbox>
-                    <ForgotPass className={style.forgotPass}/>
-                    <div className={style.btnContainer}>
-                        <SuperButton className={style.btn} type={'submit'}>Login</SuperButton>
-                    </div>
-                </form>
-
-                <div className={style.helpBlock}>
-                    <a href={'#'}>Don’t have an account?</a><br/>
-                    <a href={'#'}>Sign Up</a>
-                </div>
+            <div className={style.login__edit_body}>
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={onSubmit}
+                    validationSchema={validate}
+                >
+                    <Form className={style.login__edit}>
+                        <h2>Sign in</h2>
+                        <div className={style.login__form_body}>
+                            <div className={style.login__edit}>
+                                <label>Email</label>
+                                <Field
+                                    className={style.login__edit_input}
+                                    name='email'
+                                    type='text'
+                                    placeholder='Enter your Email'
+                                />
+                                <ErrorMessage name="email" component="div"
+                                              className={style.login_error}/>
+                            </div>
+                            <div className={style.login__edit}>
+                                <label>Password</label>
+                                <Field
+                                    className={style.login__edit_input}
+                                    name='password'
+                                    type={showPass ? 'text' : 'password'}
+                                    placeholder='Enter the password'
+                                />
+                                <img
+                                    className={style.login__show_hide_pass}
+                                    src={showPass ? show_pass : hidden_pass}
+                                    onClick={() => setShowPass(!showPass)}
+                                    alt="show or hide"/>
+                                <ErrorMessage name="password" component="div"
+                                              className={style.login_error}/>
+                            </div>
+                            {
+                                !register.errorMessage &&
+                                <div className={style.fakeDiv}/>
+                            }
+                            {
+                                register.errorMessage &&
+                                <div className={style.login_server_error}>
+                                    {register.errorMessage}
+                                </div>
+                            }
+                            <div className={style.login__forgotPass}>
+                                <NavLink to='recover'>Forgot password</NavLink>
+                            </div>
+                            <div className={style.login__edit_buttons}>
+                                <SuperButton
+                                    className={style.login__edit_buttonLogin}
+                                    type='submit'
+                                >
+                                    Login
+                                </SuperButton>
+                            </div>
+                        </div>
+                    </Form>
+                </Formik>
             </div>
         </div>
     )

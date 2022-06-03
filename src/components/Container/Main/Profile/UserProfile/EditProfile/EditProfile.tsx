@@ -84,14 +84,12 @@ export const EditProfile = memo(({profileData, clickToEditProfile}: EditProfileP
                         }
                         {
                             showUploadAvatar &&
-                            <div>
                                 <Field
                                     className={style.editProfile__edit_input}
                                     name='avatar'
                                     type='text'
                                     placeholder='Enter url or base64'
                                 />
-                            </div>
                         }
                         <div className={style.editProfile__edit}>
                             <label>Nickname</label>

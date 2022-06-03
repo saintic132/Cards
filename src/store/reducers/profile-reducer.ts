@@ -1,5 +1,5 @@
 import {TypedDispatch} from "../store";
-import {authAPI, LoginType, User, userAPI} from "../../common/c1-API/API";
+import {authAPI, User, userAPI} from "../../common/c1-API/API";
 import {registrationAPI} from "../../common/c1-API/RegistrationAPI";
 import {Dispatch} from "redux";
 
@@ -130,11 +130,10 @@ export type ProfileActionsType =
     | SetErrorToProfileType
 
 //Thunk
-export const loginTC = (data: LoginType) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: TypedDispatch) => {
-        authAPI.login(data)
+        authAPI.login(email, password, rememberMe)
             .then((res) => {
-                debugger
                 dispatch(setLoggedInAC(res.data, true))
             })
             .catch(err => {

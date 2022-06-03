@@ -131,9 +131,7 @@ button[disabled] {
     max-width: 250px;
     width: 100%;
     color: red;
-    position: relative;
-    top: 50px;
-    left: 75px;
+    margin: 10px 0;
 }
 
 .fakeDivAvatarUrl {
@@ -141,5 +139,6 @@ button[disabled] {
 }
 
 .fakeDiv {
+    margin: 10px 0;
     height: 21px;
 }
