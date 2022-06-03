@@ -4,7 +4,6 @@ import {Dispatch} from "redux";
 
 // types
 export type InitialProfileStateType = {
-    isLoggedIn: boolean
     _id: string
     email: string
     name: string
@@ -15,14 +14,17 @@ export type InitialProfileStateType = {
     isAdmin: boolean;
     verified: boolean
     rememberMe: boolean
-    editProfile: boolean
-    disableButton: boolean
-    errorMessage: null | string
-    registerCompleted: boolean
+    helpers: {
+        isLoggedIn: boolean
+        editProfile: boolean
+        disableButton: boolean
+        errorMessage: null | string
+        registerCompleted: boolean
+        sendMessageToEmail: boolean
+    }
 }
 
 const initialState = {
-    isLoggedIn: false,
     _id: '',
     email: '',
     name: '',
@@ -33,15 +35,20 @@ const initialState = {
     isAdmin: false,
     verified: false,
     rememberMe: false,
-    editProfile: false,
-    disableButton: false,
-    errorMessage: null,
-    registerCompleted: false
+    helpers : {
+        isLoggedIn: false,
+        editProfile: false,
+        disableButton: false,
+        errorMessage: null,
+        registerCompleted: false,
+        sendMessageToEmail: false
+    }
 }
 
 export enum ACTIONS_PROFILE_TYPE {
     SET_IS_LOGGED_IN = 'LOGIN/SET_IS_LOGGED_IN',
     REGISTER_COMPLETED = 'REGISTRATION/REGISTER_COMPLETED',
+    FORGOT_PASSWORD = 'PASSWORD/FORGOT_PASSWORD',
     CHANGE_NICKNAME_PROFILE = 'PROFILE/CHANGE_NICKNAME_PROFILE',
     CHANGE_EDITMODE_PROFILE = 'PROFILE/CHANGE_EDITMODE_PROFILE',
     DISABLE_BUTTON = 'PROFILE/DISABLE_BUTTON',
@@ -51,11 +58,33 @@ export enum ACTIONS_PROFILE_TYPE {
 export const profileReducer = (state: InitialProfileStateType = initialState, action: ProfileActionsType): InitialProfileStateType => {
     switch (action.type) {
         case ACTIONS_PROFILE_TYPE.SET_IS_LOGGED_IN: {
-            return {...state, ...action.data, isLoggedIn: action.isLoggedIn}
-
+            return {
+                ...state,
+                ...action.data,
+                helpers: {
+                    ...state.helpers,
+                    isLoggedIn: action.isLoggedIn
+                }
+            }
         }
-        case ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED:
-            return {...state, registerCompleted: action.register}
+        case ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED: {
+            return {
+                ...state,
+                helpers: {
+                    ...state.helpers,
+                    registerCompleted: action.register
+                }
+            }
+        }
+        case ACTIONS_PROFILE_TYPE.FORGOT_PASSWORD: {
+            return {
+                ...state,
+                helpers: {
+                    ...state.helpers,
+                    sendMessageToEmail: action.sendMessageToEmail
+                }
+            }
+        }
         case ACTIONS_PROFILE_TYPE.CHANGE_NICKNAME_PROFILE: {
             return {
                 ...state,
@@ -65,19 +94,29 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
         }
         case ACTIONS_PROFILE_TYPE.CHANGE_EDITMODE_PROFILE: {
             return {
-                ...state, editProfile: action.editMode
+                ...state,
+                helpers: {
+                    ...state.helpers,
+                    editProfile: action.editMode
+                }
             }
         }
         case ACTIONS_PROFILE_TYPE.DISABLE_BUTTON: {
             return {
                 ...state,
-                disableButton: action.disableButton
+                helpers: {
+                    ...state.helpers,
+                    disableButton: action.disableButton
+                }
             }
         }
         case ACTIONS_PROFILE_TYPE.SET_ERROR_TO_PROFILE: {
             return {
                 ...state,
-                errorMessage: action.error
+                helpers: {
+                    ...state.helpers,
+                    errorMessage: action.error
+                }
             }
         }
         default:
@@ -92,6 +131,9 @@ export const setLoggedInAC = (data: User, isLoggedIn: boolean) => ({
 } as const)
 export const setRegistrationCompletedAC = (register: boolean) => {
     return {type: ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED, register} as const
+}
+export const setNewPasswordAC = (sendMessageToEmail: boolean) => {
+    return {type: ACTIONS_PROFILE_TYPE.FORGOT_PASSWORD, sendMessageToEmail} as const
 }
 export const editProfileAC = (name: string, avatar?: string) => ({
     type: ACTIONS_PROFILE_TYPE.CHANGE_NICKNAME_PROFILE,
@@ -119,16 +161,39 @@ type SetEditProfileType = ReturnType<typeof setEditProfileAC>
 type SetDisableButtonSaveButtonEditProfileType = ReturnType<typeof setDisableButtonAC>
 type SetErrorToProfileType = ReturnType<typeof setErrorToProfileAC>
 type SetRegistrationCompleteType = ReturnType<typeof setRegistrationCompletedAC>
+type setNewPasswordType = ReturnType<typeof setNewPasswordAC>
 
 export type ProfileActionsType =
     LoginActionType
     | SetRegistrationCompleteType
+    | setNewPasswordType
     | EditProfileType
     | SetEditProfileType
     | SetDisableButtonSaveButtonEditProfileType
     | SetErrorToProfileType
 
 //Thunk
+export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
+    userAPI.registration(email, password)
+        .then(res => {
+            dispatch(setRegistrationCompletedAC(true))
+        })
+        .catch(err => {
+            if (err.response.data) {
+                dispatch(setErrorToProfileAC(err.response.data.error))
+            } else {
+                dispatch(setErrorToProfileAC(err.message))
+            }
+        })
+}
+
+export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
+    userAPI.forgotPassword(email)
+        .then(res => {
+                dispatch(setNewPasswordAC(true))
+        })
+}
+
 export const loginTC = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: TypedDispatch) => {
         userAPI.login(email, password, rememberMe)
@@ -143,20 +208,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
                 }
             })
     }
-}
-
-export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
-    userAPI.registration(email, password)
-        .then(res => {
-            dispatch(setRegistrationCompletedAC(true))
-        })
-        .catch(err => {
-            if (err.response.data) {
-                dispatch(setErrorToProfileAC(err.response.data.error))
-            } else {
-                dispatch(setErrorToProfileAC(err.message))
-            }
-        })
 }
 
 export const editProfileThunk = (name: string, avatar?: string) => (dispatch: TypedDispatch) => {

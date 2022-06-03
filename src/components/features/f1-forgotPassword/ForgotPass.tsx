@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as Yup from "yup";
 import style from "./ForgotPass.module.css";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
-import {useAppSelector} from "../../../store/store";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
+import {setNewPasswordAC} from "../../../store/reducers/profile-reducer";
 
 type FormikInputType = {
     email: string
@@ -12,7 +13,15 @@ type FormikInputType = {
 
 export function ForgotPass() {
 
-    const register = useAppSelector(state => state.profile)
+    const register = useAppSelector(store => store.profile)
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (register.helpers.sendMessageToEmail) {
+                navigate('/recover')
+        }
+    }, [register.helpers.sendMessageToEmail, dispatch, navigate])
 
     const initialValues: FormikInputType = {
         email: '',
@@ -22,7 +31,8 @@ export function ForgotPass() {
     })
 
     const onSubmit = (values: FormikInputType) => {
-
+        // dispatch(forgotPasswordTC(values.email))
+        dispatch(setNewPasswordAC(true))
     }
 
     return (
@@ -47,13 +57,13 @@ export function ForgotPass() {
                                               className={style.forgotPass_error}/>
                             </div>
                             {
-                                !register.errorMessage &&
+                                !register.helpers.errorMessage &&
                                 <div className={style.fakeDiv}/>
                             }
                             {
-                                register.errorMessage &&
+                                register.helpers.errorMessage &&
                                 <div className={style.forgotPass_server_error}>
-                                    {register.errorMessage}
+                                    {register.helpers.errorMessage}
                                 </div>
                             }
                             <div className={style.forgotPass__text_helper}>
@@ -75,7 +85,7 @@ export function ForgotPass() {
                         Did you remember your password?
                     </div>
                     <div className={style.forgotPass__sign_up}>
-                        <NavLink to='/forgotPass'>Try logging in</NavLink>
+                        <NavLink to='/login'>Try logging in</NavLink>
                     </div>
                 </div>
             </div>

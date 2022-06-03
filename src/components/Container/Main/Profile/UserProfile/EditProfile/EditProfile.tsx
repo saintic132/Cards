@@ -113,13 +113,13 @@ export const EditProfile = memo(({profileData, clickToEditProfile}: EditProfileP
                                           className={style.editProfile__edit_error}/>
                         </div>
                         {
-                            !profileData.errorMessage &&
+                            !profileData.helpers.errorMessage &&
                             <div className={style.fakeDiv}/>
                         }
                         {
-                            profileData.errorMessage &&
+                            profileData.helpers.errorMessage &&
                             <div className={style.editProfile__edit_server_error}>
-                                {profileData.errorMessage}
+                                {profileData.helpers.errorMessage}
                             </div>
                         }
                         <div className={style.editProfile__edit_buttons}>
@@ -133,7 +133,7 @@ export const EditProfile = memo(({profileData, clickToEditProfile}: EditProfileP
                             <SuperButton
                                 className={style.editProfile__edit_buttonSave}
                                 type='submit'
-                                disabled={profileData.disableButton}
+                                disabled={profileData.helpers.disableButton}
                             >
                                 Save
                             </SuperButton>

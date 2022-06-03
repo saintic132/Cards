@@ -25,7 +25,7 @@ export const Registration = () => {
 
     useEffect(() => {
         let newTo: number
-        if (register.registerCompleted) {
+        if (register.helpers.registerCompleted) {
             newTo = +setTimeout(() => {
                 navigate('/login')
                 dispatch(setRegistrationCompletedAC(false))
@@ -33,12 +33,12 @@ export const Registration = () => {
         }
 
         return () => {
-            if (register.registerCompleted) {
+            if (register.helpers.registerCompleted) {
                 clearTimeout(newTo)
             }
         }
 
-    }, [register.registerCompleted, dispatch, navigate])
+    }, [register.helpers.registerCompleted, dispatch, navigate])
 
     const hideAllPasswordWhenReset = () => {
         setShowPass(false)
@@ -121,16 +121,16 @@ export const Registration = () => {
                                               className={style.registration_error}/>
                             </div>
                             {
-                                !register.errorMessage &&
+                                !register.helpers.errorMessage &&
                                 <div className={style.fakeDiv}/>
                             }
                             {
-                                register.errorMessage &&
+                                register.helpers.errorMessage &&
                                 <div className={style.registration_server_error}>
-                                    {register.errorMessage}
+                                    {register.helpers.errorMessage}
                                 </div>
                             }
-                            {register.registerCompleted && <div>Register completed</div>}
+                            {register.helpers.registerCompleted && <div>Register completed</div>}
                             <div className={style.registration__edit_buttons}>
                                 <SuperButton
                                     className={style.registration__edit_buttonCancel}

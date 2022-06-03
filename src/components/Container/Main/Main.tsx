@@ -3,14 +3,14 @@ import Profile from "./Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {Login} from "../../features/f2-Login/Login";
 import {ForgotPass} from "../../features/f1-forgotPassword/ForgotPass";
-import {EnterNewPass} from "../../features/f1-forgotPassword/EnterNewPass/EnterNewPass";
+import {CheckEmail} from "../../features/f1-forgotPassword/CheckEmail/CheckEmail";
 import Error404 from "../../../common/c2-404_Page/Error404";
 import {Registration} from "../../features/f3-Register/Registration";
 import {useAppSelector} from "../../../store/store";
 
 export function Main() {
 
-    const isLoginIn = useAppSelector(state => state.profile.isLoggedIn)
+    const isLoginIn = useAppSelector(state => state.profile.helpers.isLoggedIn)
 
     return (
         <>
@@ -33,11 +33,15 @@ export function Main() {
                 />
                 <Route
                     path="enterNewPass"
-                    element={<EnterNewPass/>}
+                    element={<CheckEmail/>}
                 />
                 <Route
                     path="*"
                     element={<Error404/>}
+                />
+                <Route
+                    path="recover"
+                    element={<CheckEmail />}
                 />
             </Routes>
         </>

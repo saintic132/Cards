@@ -76,17 +76,17 @@ export const Login = () => {
                                               className={style.login_error}/>
                             </div>
                             {
-                                !register.errorMessage &&
+                                !register.helpers.errorMessage &&
                                 <div className={style.fakeDiv}/>
                             }
                             {
-                                register.errorMessage &&
+                                register.helpers.errorMessage &&
                                 <div className={style.login_server_error}>
-                                    {register.errorMessage}
+                                    {register.helpers.errorMessage}
                                 </div>
                             }
                             <div className={style.login__forgotPass}>
-                                <NavLink to='recover'>Forgot password</NavLink>
+                                <NavLink to='/forgot'>Forgot password</NavLink>
                             </div>
                             <div className={style.login__edit_buttons}>
                                 <SuperButton

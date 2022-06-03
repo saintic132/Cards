@@ -20,7 +20,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
         dispatch(setEditProfileAC(editMode))
     }
 
-    if (profileData.editProfile) {
+    if (profileData.helpers.editProfile) {
         return <EditProfile
             profileData={profileData}
             clickToEditProfile={clickToEditProfile}
