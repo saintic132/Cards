@@ -1,11 +1,11 @@
 import React from 'react';
 import Profile from "./Profile/Profile";
 import {Route, Routes} from "react-router-dom";
-import {Login} from "../../features/Login/Login";
-import {ForgotPass} from "../../features/ForgotPass/ForgotPass";
-import {EnterNewPass} from "../../features/ForgotPass/EnterNewPass/EnterNewPass";
+import {Login} from "../../features/f2-Login/Login";
+import {ForgotPass} from "../../features/f1-forgotPassword/ForgotPass";
+import {EnterNewPass} from "../../features/f1-forgotPassword/EnterNewPass/EnterNewPass";
 import Error404 from "../../../common/c2-404_Page/Error404";
-import {Registration} from "../../features/Registration/Registration";
+import {Registration} from "../../features/f3-Register/Registration";
 import {useAppSelector} from "../../../store/store";
 
 export function Main() {
@@ -28,7 +28,7 @@ export function Main() {
                     element={<Registration/>}
                 />
                 <Route
-                    path="forgotPass"
+                    path="forgot"
                     element={<ForgotPass/>}
                 />
                 <Route
