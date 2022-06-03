@@ -32,12 +32,7 @@
     display: flex;
     flex-direction: column;
 }
-.registration__edit span{
-    color: #F1453D;
-    margin-top: 2px;
-    display: flex;
-    flex-direction: column;
-}
+
 .registration__edit > label {
     font-style: normal;
     font-weight: 400;

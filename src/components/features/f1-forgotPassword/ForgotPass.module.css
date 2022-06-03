@@ -1,4 +1,4 @@
-.login__container {
+.forgotPass__container {
     max-width: 415px;
     width: 100%;
     height: 100%;
@@ -7,47 +7,39 @@
     border-radius: 8px;
 }
 
-.login__edit_body {
+.forgotPass__edit_body {
     padding: 30px;
     max-width: 415px;
     display: flex;
     flex-direction: column;
 }
 
-.login__edit_body h2 {
+.forgotPass__edit_body h2 {
     font-weight: 600;
     font-size: 22px;
     line-height: 33px;
     align-self: center;
 }
 
-.login__form_body {
+.forgotPass__form_body {
     width: 100%;
     margin-top: 40px;
 }
 
-.login__edit {
+.forgotPass__edit {
     position: relative;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
 }
 
-.login__edit > label {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: #24254A;
-}
-
-.login__edit_buttons {
-    margin-top: 100px;
+.forgotPass__edit_buttons {
+    margin-top: 90px;
     display: flex;
     justify-content: center;
 }
 
-.login__edit_input {
+.forgotPass__edit_input {
     margin-top: 8px;
     width: 100%;
     border: none;
@@ -55,43 +47,35 @@
     padding: 5px 0;
 }
 
-.login__edit_input:focus {
+.forgotPass__edit_input:focus {
     outline: none;
 }
 
-.login__show_hide_pass {
-    cursor: pointer;
-    position: absolute;
-    bottom: 11px;
-    height: 16px;
-    right: 0;
-    top: 33px;
-}
-
-.login__forgotPass {
-    margin: 50px 20px 0 0;
-    text-align: right;
+.forgotPass__text_helper {
+    margin: 30px 20px 0 0;
+    text-align: justify;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 16px;
+    line-height: 24px;
     color: #2D2E46;
+    opacity: 0.5;
 }
 
-.login__forgotPass > a {
+.forgotPass__text_helper > a {
     text-decoration: none;
     color: #2D2E46;
 }
 
-.login__forgotPass > a:hover {
+.forgotPass__text_helper > a:hover {
     text-decoration: underline;
 }
 
-.login__forgotPass > a:visited {
+.forgotPass__text_helper > a:visited {
     color: #2D2E46;
 }
 
-.login__edit_buttonLogin {
+.forgotPass__edit_buttonForgotPass {
     max-width: 266px;
     width: 100%;
     height: 36px;
@@ -109,11 +93,11 @@
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
-.login__edit_buttonLogin:hover {
+.forgotPass__edit_buttonForgotPass:hover {
     cursor: pointer;
 }
 
-.login__edit_buttonLogin:active {
+.forgotPass__edit_buttonForgotPass:active {
     box-shadow: 0 1px #666;
     transform: translateY(1px);
 }
@@ -125,14 +109,14 @@ button[disabled] {
     color: #6666
 }
 
-.login_sign_up_container {
+.forgotPass_sign_up_container {
     margin-top: 31px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.login__sign_up_account {
+.forgotPass__sign_up_account {
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -141,7 +125,7 @@ button[disabled] {
     opacity: 0.5;
 }
 
-.login__sign_up {
+.forgotPass__sign_up {
     margin-top: 11px;
     font-style: normal;
     font-weight: 600;
@@ -151,27 +135,27 @@ button[disabled] {
     text-decoration: none;
 }
 
-.login__sign_up > a {
+.forgotPass__sign_up > a {
     text-decoration: none;
     color: #2D2E46;
 }
 
-.login__sign_up > a:hover {
+.forgotPass__sign_up > a:hover {
     text-decoration: underline;
 }
 
-.login__sign_up > a:visited {
+.forgotPass__sign_up > a:visited {
     color: #2D2E46;
 }
 
 
 /*Error field show*/
 
-.login_error {
+.forgotPass_error {
     color: red;
 }
 
-.login_server_error {
+.forgotPass_server_error {
     max-width: 250px;
     width: 100%;
     color: red;

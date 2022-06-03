@@ -104,7 +104,7 @@ export const Login = () => {
                         Don't have an account?
                     </div>
                     <div className={style.login__sign_up}>
-                        <NavLink to='register'>Sign Up</NavLink>
+                        <NavLink to='/register'>Sign Up</NavLink>
                     </div>
                 </div>
             </div>
