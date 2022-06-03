@@ -1,6 +1,5 @@
 import {TypedDispatch} from "../store";
-import {authAPI, User, userAPI} from "../../common/c1-API/API";
-import {registrationAPI} from "../../common/c1-API/RegistrationAPI";
+import {User, userAPI} from "../../common/c1-API/API";
 import {Dispatch} from "redux";
 
 // types
@@ -132,7 +131,7 @@ export type ProfileActionsType =
 //Thunk
 export const loginTC = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: TypedDispatch) => {
-        authAPI.login(email, password, rememberMe)
+        userAPI.login(email, password, rememberMe)
             .then((res) => {
                 dispatch(setLoggedInAC(res.data, true))
             })
@@ -147,7 +146,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 }
 
 export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
-    registrationAPI.registration(email, password)
+    userAPI.registration(email, password)
         .then(res => {
             dispatch(setRegistrationCompletedAC(true))
         })
@@ -181,6 +180,3 @@ export const editProfileThunk = (name: string, avatar?: string) => (dispatch: Ty
             dispatch(setDisableButtonAC(false))
         })
 }
-
-
-

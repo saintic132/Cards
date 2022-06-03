@@ -6,18 +6,31 @@ const instance = axios.create({
 })
 
 export const userAPI = {
+    registration (email: string, password: string) {
+        return instance.post<{email: string, password: string}, AxiosResponse<RegistrationResponseType>>('auth/register', {email, password})
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<{email: string, password: string, rememberUser: boolean}, AxiosResponse<User>>(`/auth/login`, {email, password, rememberMe})
+    },
     editProfile(name: string, avatar?: string) {
         return instance.put<{ name: string, avatar?: string }, AxiosResponse<ResponseType<User>>>('/auth/me', {
             name,
             avatar
         })
-    }
+    },
 }
 
-export const authAPI = {
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<{email: string, password: string, rememberUser: boolean}, AxiosResponse<User>>(`/auth/login`, {email, password, rememberMe})
-    },
+export type RegistrationResponseType = {
+    created: string
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    updated: string
+    verified: boolean
+    __v: number
+    _id: string
 }
 
 export type User = {
