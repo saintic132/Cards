@@ -1,10 +1,14 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Field, Form, Formik} from "formik";
-import SuperButton from "../../../common/buttons/c2-SuperButton/SuperButton";
+import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import style from './Registration.module.css';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {errorUnsamePasswordAC, registrationTC, setRegisterAC} from "../../../store/reducers/registration-reducer";
 import {useNavigate} from "react-router-dom";
+import {
+    registrNewUserTC,
+    setErrorToProfileAC,
+    setRegistrationCompletedAC
+} from "../../../store/reducers/profile-reducer";
 
 
 export const Registration = () => {
@@ -25,8 +29,8 @@ export const Registration = () => {
     }
     const navigate = useNavigate()
 
-    const errorUnsame = useAppSelector(store => store.registration.errorUnsame)
-    const register = useAppSelector(store => store.registration.registerCompleted)
+    const errorUnsame = useAppSelector(store => store.profile.errorMessage)
+    const register = useAppSelector(store => store.profile.registerCompleted)
 
     const initialValues = {
         email: '',
@@ -39,7 +43,7 @@ export const Registration = () => {
         if (register) {
             newTo = setTimeout(() => {
                 navigate('/login')
-                dispatch(setRegisterAC(false))
+                dispatch(setRegistrationCompletedAC(false))
             }, 2500)
         }
 
@@ -53,9 +57,9 @@ export const Registration = () => {
 
     const onSubmit = () => {
         if (password === confirmPassword) {
-            dispatch(registrationTC({email, password}))
+            dispatch(registrNewUserTC({email, password}))
         } else {
-            dispatch(errorUnsamePasswordAC('Passwords unsame'))
+            dispatch(setErrorToProfileAC('Passwords unsame'))
         }
     }
     return (

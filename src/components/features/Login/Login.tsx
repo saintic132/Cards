@@ -1,18 +1,18 @@
-import SuperInputText from "../../../common/buttons/c1-SuperInputText/SuperInputText"
+import SuperInputText from "../../../common/c4-common_buttons/c1-SuperInputText/SuperInputText"
 import SuperCheckbox
-    from "../../../common/buttons/c3-SuperCheckbox/SuperCheckbox";
-import SuperButton from "../../../common/buttons/c2-SuperButton/SuperButton";
+    from "../../../common/c4-common_buttons/c3-SuperCheckbox/SuperCheckbox";
+import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import style from './Login.module.css'
 import {ForgotPass} from "../ForgotPass/ForgotPass";
 import {useFormik} from "formik";
-import {loginTC} from "../../../store/reducers/auth-reducer";
+import {loginTC} from "../../../store/reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {Navigate} from "react-router-dom";
 import * as Yup from 'yup';
 
 export const Login = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {

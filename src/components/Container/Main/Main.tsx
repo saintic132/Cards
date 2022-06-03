@@ -4,13 +4,13 @@ import {Route, Routes} from "react-router-dom";
 import {Login} from "../../features/Login/Login";
 import {ForgotPass} from "../../features/ForgotPass/ForgotPass";
 import {EnterNewPass} from "../../features/ForgotPass/EnterNewPass/EnterNewPass";
-import Error404 from "../../../common/404/Error404";
+import Error404 from "../../../common/c2-404_Page/Error404";
 import {Registration} from "../../features/Registration/Registration";
 import {useAppSelector} from "../../../store/store";
 
 export function Main() {
 
-    const isLoginIn = useAppSelector(state => state.auth.isLoggedIn)
+    const isLoginIn = useAppSelector(state => state.profile.isLoggedIn)
 
     return (
         <>

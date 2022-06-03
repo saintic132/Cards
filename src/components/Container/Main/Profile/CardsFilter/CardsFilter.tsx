@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import style from "./CardsFilter.module.css";
-import SuperInputText from "../../../../../common/buttons/c1-SuperInputText/SuperInputText";
+import SuperInputText from "../../../../../common/c4-common_buttons/c1-SuperInputText/SuperInputText";
 
 export const CardsFilter = memo(() => {
     return (

@@ -6,7 +6,7 @@ import {setEditProfileAC} from "../../../../store/reducers/profile-reducer";
 import {UserProfile} from "./UserProfile/UserProfile";
 import {CardsFilter} from "./CardsFilter/CardsFilter";
 import {ProfilePacksList} from "./ProfilePacksList/ProfilePacksList";
-import { Redirect } from '../../../features/Redirect/Redirect';
+import { Redirect } from '../../../../common/c3-Redirect/Redirect';
 
 type ProfilePropsType = {
     isLoginIn: boolean
@@ -15,7 +15,6 @@ type ProfilePropsType = {
 const Profile: React.FC<ProfilePropsType> = () => {
 
     const profileData = useAppSelector(state => state.profile)
-    const userProfile = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
 
     const clickToEditProfile = (editMode: boolean) => {

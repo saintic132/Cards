@@ -1,32 +1,62 @@
 import {TypedDispatch} from "../store";
-import {userAPI} from "../../common/API/API";
+import {authAPI, LoginType, UpdatedUser, userAPI} from "../../common/c1-API/API";
+import {registrationAPI, RegistrationParamsType} from "../../common/c1-API/RegistrationAPI";
+import {Dispatch} from "redux";
 
-export enum ACTIONS_PROFILE_TYPE {
-    CHANGE_NICKNAME_PROFILE = 'PROFILE/CHANGE_NICKNAME_PROFILE',
-    CHANGE_EDITMODE_PROFILE = 'PROFILE/CHANGE_EDITMODE_PROFILE',
-    DISABLE_SAVEBUTTON_PROFILE = 'PROFILE/DISABLE_SAVEBUTTON_PROFILE',
-    SET_ERROR_TO_PROFILE = 'PROFILE/SET_ERROR_TO_PROFILE',
-}
-
-type InitialProfileStateType = {
-    name: string
+// types
+export type InitialProfileStateType = {
+    isLoggedIn: boolean
+    _id: string
     email: string
-    avatar: string | undefined
+    name: string
+    avatar?: string | undefined
+    publicCardPacksCount: number;
+    created: Date | string
+    updated: Date | string
+    isAdmin: boolean;
+    verified: boolean
+    rememberMe: boolean
     editProfile: boolean
     disableButton: boolean
     errorMessage: null | string
-}
-let initialProfileState: InitialProfileStateType = {
-    name: '123@gaga.ru',
-    email: "123@gaga.ru",
-    avatar: undefined,
-    editProfile: false,
-    disableButton: false,
-    errorMessage: null
+    registerCompleted: boolean
 }
 
-const profileReducer = (state: InitialProfileStateType = initialProfileState, action: ProfileActionsType): InitialProfileStateType => {
+const initialState = {
+    isLoggedIn: false,
+    _id: '',
+    email: '',
+    name: '',
+    avatar: undefined,
+    publicCardPacksCount: 0,
+    created: '',
+    updated: '',
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+    editProfile: false,
+    disableButton: false,
+    errorMessage: null,
+    registerCompleted: false
+}
+
+export enum ACTIONS_PROFILE_TYPE {
+    SET_IS_LOGGED_IN = 'LOGIN/SET_IS_LOGGED_IN',
+    REGISTER_COMPLETED = 'REGISTRATION/REGISTER_COMPLETED',
+    CHANGE_NICKNAME_PROFILE = 'PROFILE/CHANGE_NICKNAME_PROFILE',
+    CHANGE_EDITMODE_PROFILE = 'PROFILE/CHANGE_EDITMODE_PROFILE',
+    DISABLE_BUTTON = 'PROFILE/DISABLE_BUTTON',
+    SET_ERROR_TO_PROFILE = 'PROFILE/SET_ERROR_TO_PROFILE',
+}
+
+export const profileReducer = (state: InitialProfileStateType = initialState, action: ProfileActionsType): InitialProfileStateType => {
     switch (action.type) {
+        case ACTIONS_PROFILE_TYPE.SET_IS_LOGGED_IN: {
+            return {...state, ...action.data, isLoggedIn: action.isLoggedIn}
+
+        }
+        case ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED:
+            return {...state, registerCompleted: action.register}
         case ACTIONS_PROFILE_TYPE.CHANGE_NICKNAME_PROFILE: {
             return {
                 ...state,
@@ -39,7 +69,7 @@ const profileReducer = (state: InitialProfileStateType = initialProfileState, ac
                 ...state, editProfile: action.editMode
             }
         }
-        case ACTIONS_PROFILE_TYPE.DISABLE_SAVEBUTTON_PROFILE: {
+        case ACTIONS_PROFILE_TYPE.DISABLE_BUTTON: {
             return {
                 ...state,
                 disableButton: action.disableButton
@@ -55,8 +85,15 @@ const profileReducer = (state: InitialProfileStateType = initialProfileState, ac
             return state
     }
 }
-
-//Actions
+// actions
+export const setLoggedInAC = (data: UpdatedUser, isLoggedIn: boolean) => ({
+    type: ACTIONS_PROFILE_TYPE.SET_IS_LOGGED_IN,
+    data,
+    isLoggedIn
+} as const)
+export const setRegistrationCompletedAC = (register: boolean) => {
+    return {type: ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED, register} as const
+}
 export const editProfileAC = (name: string, avatar?: string) => ({
     type: ACTIONS_PROFILE_TYPE.CHANGE_NICKNAME_PROFILE,
     name,
@@ -67,7 +104,7 @@ export const setEditProfileAC = (editMode: boolean) => ({
     editMode
 } as const)
 export const setDisableButtonSaveButtonEditProfileAC = (disableButton: boolean) => ({
-    type: ACTIONS_PROFILE_TYPE.DISABLE_SAVEBUTTON_PROFILE,
+    type: ACTIONS_PROFILE_TYPE.DISABLE_BUTTON,
     disableButton
 } as const)
 export const setErrorToProfileAC = (error: string | null) => ({
@@ -75,20 +112,46 @@ export const setErrorToProfileAC = (error: string | null) => ({
     error
 } as const)
 
+
 //Types Actions
+type LoginActionType = ReturnType<typeof setLoggedInAC>
 type EditProfileType = ReturnType<typeof editProfileAC>
 type SetEditProfileType = ReturnType<typeof setEditProfileAC>
 type SetDisableButtonSaveButtonEditProfileType = ReturnType<typeof setDisableButtonSaveButtonEditProfileAC>
 type SetErrorToProfileType = ReturnType<typeof setErrorToProfileAC>
+type SetRegistrationCompleteType = ReturnType<typeof setRegistrationCompletedAC>
 
 export type ProfileActionsType =
-    EditProfileType
+    LoginActionType
+    | SetRegistrationCompleteType
+    | EditProfileType
     | SetEditProfileType
     | SetDisableButtonSaveButtonEditProfileType
     | SetErrorToProfileType
 
-
 //Thunk
+export const loginTC = (data: LoginType) => {
+    return (dispatch: TypedDispatch) => {
+        authAPI.login(data)
+            .then((res) => {
+                dispatch(setLoggedInAC(res.data.updatedUser, true))
+            })
+            .catch((error) => {
+                alert(error)
+            })
+    }
+}
+
+export const registrNewUserTC = (data: RegistrationParamsType) => (dispatch: Dispatch) => {
+    registrationAPI.registration(data)
+        .then(res => {
+            dispatch(setRegistrationCompletedAC(true))
+        })
+        .catch(err => {
+            dispatch(setErrorToProfileAC(err.response.data.error))
+        })
+}
+
 export const editProfileThunk = (name: string, avatar?: string) => (dispatch: TypedDispatch) => {
     dispatch(setDisableButtonSaveButtonEditProfileAC(true))
     dispatch(setErrorToProfileAC(null))
@@ -112,4 +175,4 @@ export const editProfileThunk = (name: string, avatar?: string) => (dispatch: Ty
 }
 
 
-export default profileReducer
+
