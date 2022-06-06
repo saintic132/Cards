@@ -71,8 +71,8 @@ export const Registration = () => {
             <div className={style.registration__edit_body}>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={onSubmit}
                     validationSchema={validate}
+                    onSubmit={onSubmit}
                 >
                     <Form className={style.registration__edit}>
                         <h2>Sign up</h2>

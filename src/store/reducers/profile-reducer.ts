@@ -21,6 +21,7 @@ export type InitialProfileStateType = {
         errorMessage: null | string
         registerCompleted: boolean
         sendMessageToEmail: boolean
+        newPassSet: boolean
     }
 }
 
@@ -41,7 +42,8 @@ const initialState = {
         disableButton: false,
         errorMessage: null,
         registerCompleted: false,
-        sendMessageToEmail: false
+        sendMessageToEmail: false,
+        newPassSet: false
     }
 }
 
@@ -49,6 +51,7 @@ export enum ACTIONS_PROFILE_TYPE {
     SET_IS_LOGGED_IN = 'LOGIN/SET_IS_LOGGED_IN',
     REGISTER_COMPLETED = 'REGISTRATION/REGISTER_COMPLETED',
     FORGOT_PASSWORD = 'PASSWORD/FORGOT_PASSWORD',
+    SEND_NEW_PASSWORD = 'PASSWORD/SEND_NEW_PASSWORD',
     CHANGE_NICKNAME_PROFILE = 'PROFILE/CHANGE_NICKNAME_PROFILE',
     CHANGE_EDITMODE_PROFILE = 'PROFILE/CHANGE_EDITMODE_PROFILE',
     DISABLE_BUTTON = 'PROFILE/DISABLE_BUTTON',
@@ -82,6 +85,15 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
                 helpers: {
                     ...state.helpers,
                     sendMessageToEmail: action.sendMessageToEmail
+                }
+            }
+        }
+        case ACTIONS_PROFILE_TYPE.SEND_NEW_PASSWORD: {
+            return {
+                ...state,
+                helpers: {
+                    ...state.helpers,
+                    newPassSet: action.completed
                 }
             }
         }
@@ -132,8 +144,11 @@ export const setLoggedInAC = (data: User, isLoggedIn: boolean) => ({
 export const setRegistrationCompletedAC = (register: boolean) => {
     return {type: ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED, register} as const
 }
-export const setNewPasswordAC = (sendMessageToEmail: boolean) => {
+export const sendEmailToRecoverPasswordAC = (sendMessageToEmail: boolean) => {
     return {type: ACTIONS_PROFILE_TYPE.FORGOT_PASSWORD, sendMessageToEmail} as const
+}
+export const setNewPasswordAC = (completed: boolean) => {
+    return {type: ACTIONS_PROFILE_TYPE.SEND_NEW_PASSWORD, completed} as const
 }
 export const editProfileAC = (name: string, avatar?: string) => ({
     type: ACTIONS_PROFILE_TYPE.CHANGE_NICKNAME_PROFILE,
@@ -161,12 +176,14 @@ type SetEditProfileType = ReturnType<typeof setEditProfileAC>
 type SetDisableButtonSaveButtonEditProfileType = ReturnType<typeof setDisableButtonAC>
 type SetErrorToProfileType = ReturnType<typeof setErrorToProfileAC>
 type SetRegistrationCompleteType = ReturnType<typeof setRegistrationCompletedAC>
-type setNewPasswordType = ReturnType<typeof setNewPasswordAC>
+type SendEmailToRecoverPasswordType = ReturnType<typeof sendEmailToRecoverPasswordAC>
+type SetNewPasswordType = ReturnType<typeof setNewPasswordAC>
 
 export type ProfileActionsType =
     LoginActionType
     | SetRegistrationCompleteType
-    | setNewPasswordType
+    | SendEmailToRecoverPasswordType
+    | SetNewPasswordType
     | EditProfileType
     | SetEditProfileType
     | SetDisableButtonSaveButtonEditProfileType
@@ -193,6 +210,14 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
         .then(res => {
             dispatch(setNewPasswordAC(true))
             dispatch(setDisableButtonAC(false))
+        })
+}
+
+export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {
+    dispatch(setDisableButtonAC(true))
+    userAPI.setNewPassword(password, token)
+        .then(res => {
+
         })
 }
 

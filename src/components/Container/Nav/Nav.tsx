@@ -6,10 +6,9 @@ export const Nav = () => {
 
     return (
         <div className={style.container}>
-            <NavLink to={'profile'} >Profile</NavLink>
+            <NavLink to={'/'} >Profile</NavLink>
             <NavLink to={'login'}>Login</NavLink>
             <NavLink to={'register'}>Registration</NavLink>
-            <NavLink to={'newPassSet'}>EnterNewPass</NavLink>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import {CheckEmail} from "../../features/f1-forgotPassword/CheckEmail/CheckEmail
 import Error404 from "../../../common/c2-404_Page/Error404";
 import {Registration} from "../../features/f3-Register/Registration";
 import {useAppSelector} from "../../../store/store";
+import {SetNewPassword} from "../../features/f1-forgotPassword/SetNewPassword/SetNewPassword";
 
 export function Main() {
 
@@ -16,7 +17,7 @@ export function Main() {
         <>
             <Routes>
                 <Route
-                    path="profile"
+                    path="/"
                     element={<Profile isLoginIn={isLoginIn}/>}
                 />
                 <Route
@@ -32,16 +33,16 @@ export function Main() {
                     element={<ForgotPass/>}
                 />
                 <Route
-                    path="enterNewPass"
-                    element={<CheckEmail/>}
-                />
-                <Route
                     path="*"
                     element={<Error404/>}
                 />
                 <Route
                     path="recover"
                     element={<CheckEmail/>}
+                />
+                <Route
+                    path="set-new-password/:token"
+                    element={<SetNewPassword/>}
                 />
             </Routes>
         </>
