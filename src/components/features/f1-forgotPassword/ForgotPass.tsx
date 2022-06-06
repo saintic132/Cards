@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as Yup from "yup";
 import style from "./ForgotPass.module.css";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {NavLink} from "react-router-dom";
 import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {forgotPasswordTC} from "../../../store/reducers/profile-reducer";
+import {forgotPasswordTC, setErrorToProfileAC} from "../../../store/reducers/profile-reducer";
 import {CheckEmail} from "./CheckEmail/CheckEmail";
 
 type FormikInputType = {
@@ -28,8 +28,16 @@ export function ForgotPass() {
         dispatch(forgotPasswordTC(values.email))
     }
 
+    useEffect(() => {
+        return () => {
+            if (register.helpers.errorMessage) {
+                dispatch(setErrorToProfileAC(null))
+            }
+        }
+    }, [register.helpers.errorMessage, dispatch])
+
     if (register.helpers.sendMessageToEmail) {
-        return <CheckEmail />
+        return <CheckEmail/>
     }
 
     return (
@@ -70,6 +78,7 @@ export function ForgotPass() {
                                 <SuperButton
                                     className={style.forgotPass__edit_buttonForgotPass}
                                     type='submit'
+                                    disabled={register.helpers.disableButton}
                                 >
                                     Send Instructions
                                 </SuperButton>

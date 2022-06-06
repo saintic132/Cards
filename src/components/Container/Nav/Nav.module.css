@@ -1,8 +1,35 @@
-
-.container {
+.nav__container {
+    width: 100%;
     height: 60px;
 }
 
-.container > a {
+.nav__body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav__container > a {
     padding: 0 5px;
+}
+
+.nav__center {}
+
+.nav__container__notLoginIn {
+    max-width: 415px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.nav__container__notLoginIn a {
+    color: #635D80;
+}
+
+.nav__container__notLoginIn a:hover {
+    text-decoration: underline;
+}
+
+.nav__container__notLoginIn a:visited {
+    color: #635D80;
 }

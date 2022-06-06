@@ -19,14 +19,20 @@ export const userAPI = {
             rememberMe
         })
     },
+    logout() {
+        return instance.delete<null, AxiosResponse<{ info: string }>>('/auth/me')
+    },
     forgotPassword(email: string) {
-        return instance.post('/auth/forgot', {
+        return instance.post<{ email: string }, AxiosResponse<{ info: string }>>('/auth/forgot', {
             email,
             message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='https://saintic132.github.io/GlobalProject/#/set-new-password/$token$'>link</a></div>`
         })
     },
     setNewPassword(password: string, token: string) {
-        return instance.post('/auth/set-new-password', {password, resetPasswordToken: token})
+        return instance.post<{ password: string, token: string }, AxiosResponse<{ info: string }>>('/auth/set-new-password', {
+            password,
+            resetPasswordToken: token
+        })
     },
     editProfile(name: string, avatar?: string) {
         return instance.put<{ name: string, avatar?: string }, AxiosResponse<ResponseType<User>>>('/auth/me', {

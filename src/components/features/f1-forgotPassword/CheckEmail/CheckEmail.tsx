@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import style from './CheckEmail.module.css'
 import email_img from '../../../../assets/a3-email_send/email.png'
-import {setNewPasswordAC} from "../../../../store/reducers/profile-reducer";
+import {sendEmailToRecoverPasswordAC} from "../../../../store/reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 
 export function CheckEmail() {
@@ -12,10 +12,10 @@ export function CheckEmail() {
     useEffect(() => {
         return () => {
             if (register.helpers.sendMessageToEmail) {
-                dispatch(setNewPasswordAC(false))
+                dispatch(sendEmailToRecoverPasswordAC(false, null))
             }
         }
-    },[register.helpers.sendMessageToEmail, dispatch])
+    }, [register.helpers.sendMessageToEmail, dispatch])
 
     return (
         <div className={style.checkEmail__container}>
@@ -24,7 +24,7 @@ export function CheckEmail() {
                 Check Email
             </div>
             <div className={style.checkEmail__send}>
-                We’ve sent an Email with instructions to example@mail.com
+                We’ve sent an Email with instructions to {register.helpers.tempEmailToRecover}
             </div>
         </div>
     )

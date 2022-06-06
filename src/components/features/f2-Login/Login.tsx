@@ -1,13 +1,13 @@
 import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import style from './Login.module.css'
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {loginTC} from "../../../store/reducers/profile-reducer";
+import {loginTC, setErrorToProfileAC} from "../../../store/reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import * as Yup from 'yup';
 import show_pass from "../../../assets/a2-show_hide_password/show.png";
 import hidden_pass from "../../../assets/a2-show_hide_password/hidden.png";
-import React, {useState} from "react";
-import { NavLink } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
 
 
 type FormikInputType = {
@@ -19,7 +19,20 @@ type FormikInputType = {
 export const Login = () => {
     const dispatch = useAppDispatch()
     const register = useAppSelector(state => state.profile)
-    const [showPass, setShowPass] = useState<boolean>(false);
+    const [showPass, setShowPass] = useState<boolean>(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (register.helpers.isLoggedIn) {
+            navigate('/')
+        }
+
+        return () => {
+            if (register.helpers.errorMessage) {
+                dispatch(setErrorToProfileAC(null))
+            }
+        }
+    }, [register.helpers.isLoggedIn, register.helpers.errorMessage, dispatch, navigate])
 
     const initialValues: FormikInputType = {
         email: '',
@@ -92,6 +105,7 @@ export const Login = () => {
                                 <SuperButton
                                     className={style.login__edit_buttonLogin}
                                     type='submit'
+                                    disabled={register.helpers.disableButton}
                                 >
                                     Login
                                 </SuperButton>

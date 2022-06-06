@@ -2,8 +2,8 @@ import {TypedDispatch} from "../store";
 import {User, userAPI} from "../../common/c1-API/API";
 import {Dispatch} from "redux";
 
-// types
-export type InitialProfileStateType = {
+//fakeUserWhenLogout
+export type FakeUserStateType = {
     _id: string
     email: string
     name: string
@@ -14,6 +14,23 @@ export type InitialProfileStateType = {
     isAdmin: boolean;
     verified: boolean
     rememberMe: boolean
+}
+
+const fakeUser = {
+    _id: '',
+    email: '',
+    name: '',
+    avatar: undefined,
+    publicCardPacksCount: 0,
+    created: '',
+    updated: '',
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+}
+
+// types
+export type InitialProfileStateType = FakeUserStateType & {
     helpers: {
         isLoggedIn: boolean
         editProfile: boolean
@@ -21,6 +38,7 @@ export type InitialProfileStateType = {
         errorMessage: null | string
         registerCompleted: boolean
         sendMessageToEmail: boolean
+        tempEmailToRecover: string | null
         newPassSet: boolean
     }
 }
@@ -43,9 +61,11 @@ const initialState = {
         errorMessage: null,
         registerCompleted: false,
         sendMessageToEmail: false,
+        tempEmailToRecover: null,
         newPassSet: false
     }
 }
+
 
 export enum ACTIONS_PROFILE_TYPE {
     SET_IS_LOGGED_IN = 'LOGIN/SET_IS_LOGGED_IN',
@@ -84,7 +104,8 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
                 ...state,
                 helpers: {
                     ...state.helpers,
-                    sendMessageToEmail: action.sendMessageToEmail
+                    sendMessageToEmail: action.sendMessageToEmail,
+                    tempEmailToRecover: action.email
                 }
             }
         }
@@ -136,7 +157,7 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
     }
 }
 // actions
-export const setLoggedInAC = (data: User, isLoggedIn: boolean) => ({
+export const setLoggedInAC = (data: User | FakeUserStateType, isLoggedIn: boolean) => ({
     type: ACTIONS_PROFILE_TYPE.SET_IS_LOGGED_IN,
     data,
     isLoggedIn
@@ -144,8 +165,8 @@ export const setLoggedInAC = (data: User, isLoggedIn: boolean) => ({
 export const setRegistrationCompletedAC = (register: boolean) => {
     return {type: ACTIONS_PROFILE_TYPE.REGISTER_COMPLETED, register} as const
 }
-export const sendEmailToRecoverPasswordAC = (sendMessageToEmail: boolean) => {
-    return {type: ACTIONS_PROFILE_TYPE.FORGOT_PASSWORD, sendMessageToEmail} as const
+export const sendEmailToRecoverPasswordAC = (sendMessageToEmail: boolean, email: string| null) => {
+    return {type: ACTIONS_PROFILE_TYPE.FORGOT_PASSWORD, sendMessageToEmail, email} as const
 }
 export const setNewPasswordAC = (completed: boolean) => {
     return {type: ACTIONS_PROFILE_TYPE.SEND_NEW_PASSWORD, completed} as const
@@ -193,7 +214,9 @@ export type ProfileActionsType =
 export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
     userAPI.registration(email, password)
         .then(res => {
-            dispatch(setRegistrationCompletedAC(true))
+            if (res.status >= 200 && res.status < 400) {
+                dispatch(setRegistrationCompletedAC(true))
+            }
         })
         .catch(err => {
             if (err.response.data) {
@@ -204,25 +227,9 @@ export const registrNewUserTC = (email: string, password: string) => (dispatch: 
         })
 }
 
-export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
-    dispatch(setDisableButtonAC(true))
-    userAPI.forgotPassword(email)
-        .then(res => {
-            dispatch(setNewPasswordAC(true))
-            dispatch(setDisableButtonAC(false))
-        })
-}
-
-export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {
-    dispatch(setDisableButtonAC(true))
-    userAPI.setNewPassword(password, token)
-        .then(res => {
-
-        })
-}
-
 export const loginTC = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: TypedDispatch) => {
+        dispatch(setDisableButtonAC(true))
         userAPI.login(email, password, rememberMe)
             .then((res) => {
                 dispatch(setLoggedInAC(res.data, true))
@@ -234,7 +241,74 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
                     dispatch(setErrorToProfileAC(err.message))
                 }
             })
+            .finally(() => {
+                dispatch(setDisableButtonAC(false))
+            })
     }
+}
+
+export const logoutTC = () => {
+    return (dispatch: TypedDispatch) => {
+        dispatch(setDisableButtonAC(true))
+        userAPI.logout()
+            .then((res) => {
+                if (res.status >= 200 && res.status < 400) {
+                    dispatch(setLoggedInAC(fakeUser, false))
+                }
+            })
+            .catch(err => {
+                if (err.response.data) {
+                    dispatch(setErrorToProfileAC(err.response.data.error))
+                } else {
+                    dispatch(setErrorToProfileAC(err.message))
+                }
+            })
+            .finally(() => {
+                dispatch(setDisableButtonAC(false))
+            })
+    }
+}
+
+export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
+    dispatch(setDisableButtonAC(true))
+    userAPI.forgotPassword(email)
+        .then(res => {
+            if (res.status >= 200 && res.status < 400) {
+                dispatch(sendEmailToRecoverPasswordAC(true, email))
+                dispatch(setDisableButtonAC(false))
+            }
+        })
+        .catch((err => {
+            if (err.response.data) {
+                dispatch(setErrorToProfileAC(err.response.data.error))
+            } else {
+                dispatch(setErrorToProfileAC(err.message))
+            }
+        }))
+        .finally(() => {
+            dispatch(setDisableButtonAC(false))
+        })
+}
+
+export const sendNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {
+    dispatch(setDisableButtonAC(true))
+    userAPI.setNewPassword(password, token)
+        .then(res => {
+            if (res.status >= 200 && res.status < 400) {
+
+            }
+        })
+        .catch(err => {
+            if (err.response.data) {
+                dispatch(setErrorToProfileAC(err.response.data.error))
+            } else {
+                dispatch(setErrorToProfileAC(err.message))
+            }
+        })
+        .finally(() => {
+            dispatch(setDisableButtonAC(false))
+        })
+
 }
 
 export const editProfileThunk = (name: string, avatar?: string) => (dispatch: TypedDispatch) => {

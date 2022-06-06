@@ -86,7 +86,7 @@ export const SetNewPassword = () => {
                                     type='submit'
                                     disabled={forgot.disableButton}
                                 >
-                                    Register
+                                    Create new password
                                 </SuperButton>
                             </div>
                         </div>

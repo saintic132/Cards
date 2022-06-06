@@ -4,7 +4,11 @@ import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperB
 import style from './Registration.module.css';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {useNavigate} from "react-router-dom";
-import {registrNewUserTC, setRegistrationCompletedAC} from "../../../store/reducers/profile-reducer";
+import {
+    registrNewUserTC,
+    setErrorToProfileAC,
+    setRegistrationCompletedAC
+} from "../../../store/reducers/profile-reducer";
 import * as Yup from "yup";
 import show_pass from '../../../assets/a2-show_hide_password/show.png'
 import hidden_pass from '../../../assets/a2-show_hide_password/hidden.png'
@@ -35,14 +39,17 @@ export const Registration = () => {
         return () => {
             if (register.helpers.registerCompleted) {
                 clearTimeout(newTo)
+            }  else if (register.helpers.errorMessage) {
+                dispatch(setErrorToProfileAC(null))
             }
         }
 
-    }, [register.helpers.registerCompleted, dispatch, navigate])
+    }, [register.helpers.registerCompleted, register.helpers.errorMessage, dispatch, navigate])
 
     const hideAllPasswordWhenReset = () => {
         setShowPass(false)
         setShowConfirmPass(false)
+        navigate('/login')
     }
 
     const initialValues: FormikInputType = {
@@ -136,12 +143,14 @@ export const Registration = () => {
                                     className={style.registration__edit_buttonCancel}
                                     type='reset'
                                     onClick={hideAllPasswordWhenReset}
+                                    disabled={register.helpers.disableButton}
                                 >
-                                    Reset
+                                    Cancel
                                 </SuperButton>
                                 <SuperButton
                                     className={style.registration__edit_buttonRegistration}
                                     type='submit'
+                                    disabled={register.helpers.disableButton}
                                 >
                                     Register
                                 </SuperButton>
