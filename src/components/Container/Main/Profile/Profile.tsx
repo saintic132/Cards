@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './Profile.module.css'
 import {EditProfile} from "./UserProfile/EditProfile/EditProfile";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
@@ -20,12 +20,21 @@ const Profile: React.FC<ProfilePropsType> = () => {
         dispatch(setEditProfileAC(editMode))
     }
 
+    useEffect(() => {
+        return () => {
+            if (profileData.helpers.editProfile) {
+                dispatch(setEditProfileAC(false))
+            }
+        }
+    },[profileData.helpers.editProfile, dispatch])
+
     if (profileData.helpers.editProfile) {
         return <EditProfile
             profileData={profileData}
             clickToEditProfile={clickToEditProfile}
         />
     }
+
 
     return (
         <div className={style.profile__container}>

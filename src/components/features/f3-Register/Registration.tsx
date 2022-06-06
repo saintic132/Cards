@@ -29,7 +29,7 @@ export const Registration = () => {
             newTo = +setTimeout(() => {
                 navigate('/login')
                 dispatch(setRegistrationCompletedAC(false))
-            }, 2500)
+            }, 3000)
         }
 
         return () => {

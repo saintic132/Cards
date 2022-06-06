@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import * as Yup from "yup";
 import style from "./ForgotPass.module.css";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {setNewPasswordAC} from "../../../store/reducers/profile-reducer";
+import {forgotPasswordTC} from "../../../store/reducers/profile-reducer";
+import {CheckEmail} from "./CheckEmail/CheckEmail";
 
 type FormikInputType = {
     email: string
@@ -15,24 +16,20 @@ export function ForgotPass() {
 
     const register = useAppSelector(store => store.profile)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (register.helpers.sendMessageToEmail) {
-                navigate('/recover')
-        }
-    }, [register.helpers.sendMessageToEmail, dispatch, navigate])
 
     const initialValues: FormikInputType = {
         email: '',
     }
     const validate = Yup.object({
-        email: Yup.string().email('must be a valid email'),
+        email: Yup.string().required('Required').email('must be a valid email'),
     })
 
     const onSubmit = (values: FormikInputType) => {
-        // dispatch(forgotPasswordTC(values.email))
-        dispatch(setNewPasswordAC(true))
+        dispatch(forgotPasswordTC(values.email))
+    }
+
+    if (register.helpers.sendMessageToEmail) {
+        return <CheckEmail />
     }
 
     return (

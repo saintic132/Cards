@@ -16,7 +16,7 @@ export function Main() {
         <>
             <Routes>
                 <Route
-                    path="/"
+                    path="profile"
                     element={<Profile isLoginIn={isLoginIn}/>}
                 />
                 <Route
@@ -41,7 +41,7 @@ export function Main() {
                 />
                 <Route
                     path="recover"
-                    element={<CheckEmail />}
+                    element={<CheckEmail/>}
                 />
             </Routes>
         </>

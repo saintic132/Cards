@@ -5,4 +5,33 @@
     background-color: #F9F9FE;
     margin: 0 auto;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkEmail__container img {
+    margin-top: 80px;
+    width: 100px;
+    height: 100px;
+}
+
+.checkEmail__text {
+    margin-top: 35px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+}
+
+.checkEmail__send {
+    margin: 20px 0 100px 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #2D2E46;
+    opacity: 0.7;
 }

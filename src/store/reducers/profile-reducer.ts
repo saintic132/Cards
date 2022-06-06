@@ -35,7 +35,7 @@ const initialState = {
     isAdmin: false,
     verified: false,
     rememberMe: false,
-    helpers : {
+    helpers: {
         isLoggedIn: false,
         editProfile: false,
         disableButton: false,
@@ -188,9 +188,11 @@ export const registrNewUserTC = (email: string, password: string) => (dispatch: 
 }
 
 export const forgotPasswordTC = (email: string) => (dispatch: Dispatch) => {
+    dispatch(setDisableButtonAC(true))
     userAPI.forgotPassword(email)
         .then(res => {
-                dispatch(setNewPasswordAC(true))
+            dispatch(setNewPasswordAC(true))
+            dispatch(setDisableButtonAC(false))
         })
 }
 
