@@ -11,14 +11,14 @@ import {SetNewPassword} from "../../features/f1-forgotPassword/SetNewPassword/Se
 
 export function Main() {
 
-    const isLoginIn = useAppSelector(state => state.profile.helpers.isLoggedIn)
+    const isLoggedIn = useAppSelector(state => state.profile.helpers.isLoggedIn)
 
     return (
         <>
             <Routes>
                 <Route
                     path="/"
-                    element={<Profile isLoginIn={isLoginIn}/>}
+                    element={<Profile isLoginIn={isLoggedIn}/>}
                 />
                 <Route
                     path="login"

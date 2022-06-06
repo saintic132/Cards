@@ -19,6 +19,9 @@ export const userAPI = {
             rememberMe
         })
     },
+    authMe() {
+      return instance.post<null, AxiosResponse<RegistrationResponseType>>('/auth/me')
+    },
     logout() {
         return instance.delete<null, AxiosResponse<{ info: string }>>('/auth/me')
     },

@@ -33,6 +33,7 @@ const fakeUser = {
 export type InitialProfileStateType = FakeUserStateType & {
     helpers: {
         isLoggedIn: boolean
+        initializedContent: boolean
         editProfile: boolean
         disableButton: boolean
         errorMessage: null | string
@@ -56,6 +57,7 @@ const initialState = {
     rememberMe: false,
     helpers: {
         isLoggedIn: false,
+        initializedContent: false,
         editProfile: false,
         disableButton: false,
         errorMessage: null,
@@ -69,6 +71,7 @@ const initialState = {
 
 export enum ACTIONS_PROFILE_TYPE {
     SET_IS_LOGGED_IN = 'LOGIN/SET_IS_LOGGED_IN',
+    SET_INITIALIZED_CONTENT = 'PROFILE/SET_INITIALIZED_CONTENT',
     REGISTER_COMPLETED = 'REGISTRATION/REGISTER_COMPLETED',
     FORGOT_PASSWORD = 'PASSWORD/FORGOT_PASSWORD',
     SEND_NEW_PASSWORD = 'PASSWORD/SEND_NEW_PASSWORD',
@@ -152,6 +155,15 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
                 }
             }
         }
+        case ACTIONS_PROFILE_TYPE.SET_INITIALIZED_CONTENT: {
+            return {
+                ...state,
+                helpers: {
+                    ...state.helpers,
+                    initializedContent: true
+                }
+            }
+        }
         default:
             return state
     }
@@ -188,6 +200,8 @@ export const setErrorToProfileAC = (error: string | null) => ({
     type: ACTIONS_PROFILE_TYPE.SET_ERROR_TO_PROFILE,
     error
 } as const)
+export const setInitializedContentAC = () => ({type: ACTIONS_PROFILE_TYPE.SET_INITIALIZED_CONTENT} as const)
+
 
 
 //Types Actions
@@ -199,6 +213,7 @@ type SetErrorToProfileType = ReturnType<typeof setErrorToProfileAC>
 type SetRegistrationCompleteType = ReturnType<typeof setRegistrationCompletedAC>
 type SendEmailToRecoverPasswordType = ReturnType<typeof sendEmailToRecoverPasswordAC>
 type SetNewPasswordType = ReturnType<typeof setNewPasswordAC>
+type SetInitializedContentType = ReturnType<typeof setInitializedContentAC>
 
 export type ProfileActionsType =
     LoginActionType
@@ -209,6 +224,7 @@ export type ProfileActionsType =
     | SetEditProfileType
     | SetDisableButtonSaveButtonEditProfileType
     | SetErrorToProfileType
+| SetInitializedContentType
 
 //Thunk
 export const registrNewUserTC = (email: string, password: string) => (dispatch: Dispatch) => {
@@ -243,6 +259,18 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
             })
             .finally(() => {
                 dispatch(setDisableButtonAC(false))
+            })
+    }
+}
+
+export const isAuthUser = () => {
+    return (dispatch: TypedDispatch) => {
+        userAPI.authMe()
+            .then((res) => {
+                dispatch(setLoggedInAC(res.data, true))
+            })
+            .finally(() => {
+                dispatch(setInitializedContentAC())
             })
     }
 }
