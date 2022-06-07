@@ -1,8 +1,8 @@
 import React, {memo, useEffect, useState} from 'react';
 import style from './EditProfile.module.css'
-import SuperButton from "../../../../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
+import SuperButton from "../../../../../../common/buttons/c2-SuperButton/SuperButton";
 import {useAppDispatch} from "../../../../../../store/store";
-import noAvatar from '../../../../../../assets/a1-img/no-avatar.png'
+import noAvatar from '../../../../../../assets/img/avatar/no-avatar.png'
 import {ErrorMessage, Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import {

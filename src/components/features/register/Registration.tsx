@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
+import SuperButton from "../../../common/buttons/c2-SuperButton/SuperButton";
 import style from './Registration.module.css';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {useNavigate} from "react-router-dom";
@@ -10,8 +10,8 @@ import {
     setRegistrationCompletedAC
 } from "../../../store/reducers/profile-reducer";
 import * as Yup from "yup";
-import show_pass from '../../../assets/a2-show_hide_password/show.png'
-import hidden_pass from '../../../assets/a2-show_hide_password/hidden.png'
+import show_pass from '../../../assets/img/show_hide_password/show.png'
+import hidden_pass from '../../../assets/img/show_hide_password/hidden.png'
 
 type FormikInputType = {
     email: string,

@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../../../../store/store";
 import {setNewPasswordAC} from "../../../../../store/reducers/profile-reducer";
 import {NavLink, useNavigate} from "react-router-dom";
 import style from './CompletedNewPassword.module.css'
-import ok from '../../../../../assets/a3-email_send/ok.png'
+import ok from '../../../../../assets/img/email_send/ok.png'
 
 export const CompletedNewPassword = () => {
 

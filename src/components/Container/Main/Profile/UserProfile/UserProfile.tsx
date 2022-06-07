@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import style from "./UserProfile.module.css";
-import SuperButton from "../../../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
-import noAvatar from '../../../../../assets/a1-img/no-avatar.png'
+import SuperButton from "../../../../../common/buttons/c2-SuperButton/SuperButton";
+import noAvatar from '../../../../../assets/img/avatar/no-avatar.png'
 
 type UserProfilePropsType = {
     name: string | null

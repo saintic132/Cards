@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import style from './SetNewPassword.module.css'
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from 'formik';
-import show_pass from "../../../../assets/a2-show_hide_password/show.png";
-import hidden_pass from "../../../../assets/a2-show_hide_password/hidden.png";
-import SuperButton from "../../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
+import show_pass from "../../../../assets/img/show_hide_password/show.png";
+import hidden_pass from "../../../../assets/img/show_hide_password/hidden.png";
+import SuperButton from "../../../../common/buttons/c2-SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import {useParams} from "react-router-dom";
 import {sendNewPasswordTC} from "../../../../store/reducers/profile-reducer";

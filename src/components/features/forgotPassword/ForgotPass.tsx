@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import style from "./ForgotPass.module.css";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {NavLink} from "react-router-dom";
-import SuperButton from "../../../common/c4-common_buttons/c2-SuperButton/SuperButton";
+import SuperButton from "../../../common/buttons/c2-SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {forgotPasswordTC, setErrorToProfileAC} from "../../../store/reducers/profile-reducer";
 import {CheckEmail} from "./CheckEmail/CheckEmail";

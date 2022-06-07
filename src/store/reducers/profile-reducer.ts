@@ -1,5 +1,5 @@
 import {TypedDispatch} from "../store";
-import {User, userAPI} from "../../common/c1-API/API";
+import {User, userAPI} from "../../common/API/API";
 import {Dispatch} from "redux";
 
 //fakeUserWhenLogout

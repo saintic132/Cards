@@ -1,5 +1,5 @@
 import React from 'react';
-import SuperInputText from "../../../../../common/c4-common_buttons/c1-SuperInputText/SuperInputText";
+import SuperInputText from "../../../../../common/buttons/c1-SuperInputText/SuperInputText";
 import style from "./ProfilePacksList.module.css";
 import {PackList} from "./Packs/PackList";
 

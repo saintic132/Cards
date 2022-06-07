@@ -9,7 +9,6 @@
 .editProfile__edit_body {
     padding: 30px;
     max-width: 415px;
-    max-height: 540px;
     display: flex;
     flex-direction: column;
 }

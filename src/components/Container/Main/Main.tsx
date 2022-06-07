@@ -1,13 +1,13 @@
 import React from 'react';
 import Profile from "./Profile/Profile";
 import {Route, Routes} from "react-router-dom";
-import {Login} from "../../features/f2-Login/Login";
-import {ForgotPass} from "../../features/f1-forgotPassword/ForgotPass";
-import {CheckEmail} from "../../features/f1-forgotPassword/CheckEmail/CheckEmail";
-import Error404 from "../../../common/c2-404_Page/Error404";
-import {Registration} from "../../features/f3-Register/Registration";
+import {Login} from "../../features/login/Login";
+import {ForgotPass} from "../../features/forgotPassword/ForgotPass";
+import {CheckEmail} from "../../features/forgotPassword/CheckEmail/CheckEmail";
+import Error404 from "../../../common/404/Error404";
+import {Registration} from "../../features/register/Registration";
 import {useAppSelector} from "../../../store/store";
-import {SetNewPassword} from "../../features/f1-forgotPassword/SetNewPassword/SetNewPassword";
+import {SetNewPassword} from "../../features/forgotPassword/SetNewPassword/SetNewPassword";
 
 export function Main() {
 

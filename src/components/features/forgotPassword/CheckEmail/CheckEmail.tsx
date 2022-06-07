@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import style from './CheckEmail.module.css'
-import email_img from '../../../../assets/a3-email_send/email.png'
+import email_img from '../../../../assets/img/email_send/email.png'
 import {sendEmailToRecoverPasswordAC} from "../../../../store/reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 
