@@ -17,7 +17,7 @@ export const Nav = () => {
             <div className={style.nav__container}>
                 <div className={style.nav__body}>
                     <NavLink
-                        to='cards'
+                        to='/packs'
                         className={({isActive}) =>
                             isActive ? style.active : undefined
                         }

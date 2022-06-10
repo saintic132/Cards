@@ -8,6 +8,7 @@ import Error404 from "../../../common/404/Error404";
 import {Registration} from "../../features/register/Registration";
 import {useAppSelector} from "../../../store/store";
 import {SetNewPassword} from "../../features/forgotPassword/SetNewPassword/SetNewPassword";
+import PacksList from "./PacksList/PacksList";
 
 export function Main() {
 
@@ -21,15 +22,19 @@ export function Main() {
                     element={<Profile isLoginIn={isLoggedIn}/>}
                 />
                 <Route
-                    path="login"
+                    path="/packs"
+                    element={<PacksList isLoginIn={isLoggedIn}/>}
+                />
+                <Route
+                    path="/login"
                     element={<Login/>}
                 />
                 <Route
-                    path='register'
+                    path='/register'
                     element={<Registration/>}
                 />
                 <Route
-                    path="forgot"
+                    path="/forgot"
                     element={<ForgotPass/>}
                 />
                 <Route
@@ -37,11 +42,11 @@ export function Main() {
                     element={<Error404/>}
                 />
                 <Route
-                    path="recover"
+                    path="/recover"
                     element={<CheckEmail/>}
                 />
                 <Route
-                    path="set-new-password/:token"
+                    path="/set-new-password/:token"
                     element={<SetNewPassword/>}
                 />
             </Routes>

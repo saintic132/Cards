@@ -1,0 +1,122 @@
+.packList__container {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.packList__body {
+    flex: 1 1 auto;
+}
+
+.packList__row {
+    display: flex;
+    background-color: #ECECF9;
+    padding: 16px 0 16px 24px;
+}
+
+.packList__row > span {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #2D2E46;
+}
+
+.packList__list {
+    display: flex;
+    background-color: #fff;
+    padding: 16px 0 16px 24px;
+}
+
+.packList__list:nth-child(even) {
+    background-color: #F8F7FD;
+
+}
+
+.packList__list:nth-child(even) {
+    background-color: #F8F7FD;
+}
+
+.packList__list > span {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.packList__name {
+    flex: 0 1 25%;
+}
+
+.packList__cards {
+    flex: 0 1 15%;
+}
+
+.packList__updates {
+    cursor: pointer;
+    position: relative;
+    flex: 0 1 20%;
+}
+
+.packList__updates_none_clicked {
+    position: relative;
+    flex: 0 1 20%;
+}
+
+.packList__updates_img_0 {
+    position: absolute;
+    width: 10px;
+    height: 8px;
+    top: 5px;
+    left: 88px;
+}
+
+.packList__updates_img_1 {
+    position: absolute;
+    width: 10px;
+    height: 8px;
+    top: 5px;
+    left: 88px;
+    transform: rotate(180deg);
+}
+
+.packList__create {
+    flex: 0 1 20%;
+}
+
+.packList__sort {
+    width: 100%;
+    height: 100%;
+}
+
+.packList__action {
+    flex: 0 1 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.packList__action button {
+    cursor: pointer;
+}
+
+.packList__action button:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+
+.packList__button_delete {
+    background: #F1453D;
+    border-radius: 2px;
+    border: 2px solid red;
+    color: #FFFFFF;
+}
+
+.packList__button_edit_learn {
+    background: #D7D8EF;
+    border-radius: 2px;
+    border: 2px solid #D7D8EF;
+    color: #21268F;
+}
