@@ -41,9 +41,7 @@ export const EditProfile = memo(({clickToEditProfile}: EditProfilePropsType) => 
     })
     const onSubmit = (values: FormikValues) => {
         let {name, avatar} = values
-        if ((name === nameProfile && avatar === null) || avatar === avatarProfile) {
-            clickToEditProfile(false)
-        } else if (!avatar) {
+        if (!avatar) {
             dispatch(editProfileThunk(name))
         } else {
             dispatch(editProfileThunk(name, avatar))

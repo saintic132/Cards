@@ -6,6 +6,7 @@ import {logoutTC} from "../../../store/reducers/profile-reducer";
 import cards from '../../../assets/img/nav/card.png'
 import profile from '../../../assets/img/nav/user.png'
 import logout from '../../../assets/img/nav/logout.png'
+import {setActiveUserPacksOnlyAC} from "../../../store/reducers/packs-reducer";
 
 export const Nav = () => {
 
@@ -22,7 +23,9 @@ export const Nav = () => {
                             isActive ? style.active : undefined
                         }
                     >
-                        <div className={style.nav__activeNav}>
+                        <div className={style.nav__activeNav}
+                             onClick={() => dispatch(setActiveUserPacksOnlyAC("allPacks"))}
+                        >
                             <img src={cards} alt="cards img"/>
                             Packs list
                         </div>
@@ -33,7 +36,10 @@ export const Nav = () => {
                             isActive ? style.active : undefined
                         }
                     >
-                        <div className={style.nav__activeNav}>
+                        <div
+                            className={style.nav__activeNav}
+                            onClick={() => dispatch(setActiveUserPacksOnlyAC("userPacks"))}
+                        >
                             <img src={profile} alt="profile img"/>
                             Profile
                         </div>

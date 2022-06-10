@@ -1,6 +1,7 @@
 .nav__container {
     width: 100%;
     height: 60px;
+    position: relative;
 }
 
 .nav__body {
@@ -45,9 +46,9 @@
 .nav__login_logout {
     width: 40px;
     height: 40px;
-    position: fixed;
+    position: absolute;
     top: 9px;
-    right: 22%;
+    right: 50px;
     cursor: pointer;
 }
 

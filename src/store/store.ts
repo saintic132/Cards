@@ -3,10 +3,10 @@ import thunk, { ThunkDispatch } from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ProfileActionsType, profileReducer} from "./reducers/profile-reducer";
 import {PacksActionsType, packsReducer} from "./reducers/packs-reducer";
+import {CardsActionsType} from "./reducers/cards-reducer";
 
 
-
-export type ActionsType = ProfileActionsType | PacksActionsType
+export type ActionsType = ProfileActionsType | PacksActionsType | CardsActionsType
 export type ReduxStateType = ReturnType<typeof rootReducer>
 export type TypedDispatch = ThunkDispatch<ReduxStateType, any, ActionsType>
 

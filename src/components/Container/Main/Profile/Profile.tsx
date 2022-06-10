@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import {setEditProfileAC} from "../../../../store/reducers/profile-reducer";
 import {UserProfile} from "./UserProfile/UserProfile";
 import {CardsFilter} from "./CardsFilter/CardsFilter";
-import {ProfilePacksList} from "./ProfilePacksList/ProfilePacksList";
+import {UserPacksList} from "./UserPacksList/UserPacksList";
 import {Redirect} from "../../../../common/Redirect/Redirect";
 import {PacksCardsFilter} from "../PacksList/PacksCardsFilter/PacksCardsFilter";
 
@@ -56,7 +56,7 @@ const Profile: React.FC<ProfilePropsType> = ({loadProfile}: ProfilePropsType) =>
                                 clickToEditProfile={clickToEditProfile}
                             />
                             :
-                            <PacksCardsFilter />
+                            <PacksCardsFilter/>
                     }
 
                     <CardsFilter/>
@@ -64,7 +64,7 @@ const Profile: React.FC<ProfilePropsType> = ({loadProfile}: ProfilePropsType) =>
                 </div>
                 <div className={style.profile__body_main}>
 
-                    <ProfilePacksList
+                    <UserPacksList
                         loadProfile={loadProfile}
                     />
 
