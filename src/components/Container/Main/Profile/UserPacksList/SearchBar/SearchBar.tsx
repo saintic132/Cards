@@ -52,7 +52,6 @@ export const SearchBar = memo(({loadProfile}: SearchBarPropsType) => {
                     Add new pack
                 </SuperButton>
             }
-
         </div>
     )
 })

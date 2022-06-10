@@ -3,7 +3,7 @@ import thunk, { ThunkDispatch } from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ProfileActionsType, profileReducer} from "./reducers/profile-reducer";
 import {PacksActionsType, packsReducer} from "./reducers/packs-reducer";
-import {CardsActionsType} from "./reducers/cards-reducer";
+import {CardsActionsType, cardsReducer} from "./reducers/cards-reducer";
 
 
 export type ActionsType = ProfileActionsType | PacksActionsType | CardsActionsType
@@ -15,7 +15,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let rootReducer = combineReducers({
     profile: profileReducer,
-    packs: packsReducer
+    packs: packsReducer,
+    cards: cardsReducer
 })
 
 export const store: Store<ReduxStateType, ActionsType> = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))

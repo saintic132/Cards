@@ -8,6 +8,7 @@ import Error404 from "../../../common/404/Error404";
 import {Registration} from "../../features/register/Registration";
 import {useAppSelector} from "../../../store/store";
 import {SetNewPassword} from "../../features/forgotPassword/SetNewPassword/SetNewPassword";
+import {Pack} from "./Profile/UserPacksList/ProfilePacks/Packs/Pack/Pack";
 
 export function Main() {
 
@@ -24,12 +25,8 @@ export function Main() {
                         isLoginIn={isLoggedIn}
                     />}
                 />
-                <Route
-                    path="/packs"
-                    element={<Profile
-                        isLoginIn={isLoggedIn}
-                    />}
-                />
+                <Route path="/packs" element={<Profile isLoginIn={isLoggedIn} /> }/>
+                <Route path="/packs/:id" element={ <Pack /> } />
                 <Route
                     path="/login"
                     element={<Login/>}

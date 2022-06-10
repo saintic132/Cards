@@ -71,12 +71,12 @@ export const EditProfile = memo(({clickToEditProfile}: EditProfilePropsType) => 
 
                         {/*Добавление по специальной картинке - добавить*/}
 
-                        {/*<img*/}
-                        {/*    className={style.editProfile__img_add_new_photo}*/}
-                        {/*    src={newPhoto}*/}
-                        {/*    alt='new'*/}
-                        {/*    onClick={() => setShowUploadAvatar(!showUploadAvatar)}*/}
-                        {/*/>*/}
+                        <img
+                            className={style.editProfile__img_add_new_photo}
+                            src={''}
+                            alt='new'
+                            onClick={() => setShowUploadAvatar(!showUploadAvatar)}
+                        />
                         {
                             !showUploadAvatar &&
                             <div className={style.fakeDivAvatarUrl}/>

@@ -35,7 +35,7 @@ export enum ACTIONS_PROFILE_TYPE {
     SET_ACTIVE_USER_PACKS_ONLY = 'PACKS/SET_ACTIVE_USER_PACKS_ONLY',
 }
 
-export const packsReducer = (state: InitialCardsStateType = initialCardsState, action: CardsActionsType): InitialCardsStateType => {
+export const cardsReducer = (state: InitialCardsStateType = initialCardsState, action: CardsActionsType): InitialCardsStateType => {
     switch (action.type) {
 
         default:
