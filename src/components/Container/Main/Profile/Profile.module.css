@@ -6,6 +6,7 @@
 
 .profile__body {
     display: flex;
+    min-height: 362px;
 }
 
 .profile__body_profile {

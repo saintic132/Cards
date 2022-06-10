@@ -8,22 +8,27 @@ import Error404 from "../../../common/404/Error404";
 import {Registration} from "../../features/register/Registration";
 import {useAppSelector} from "../../../store/store";
 import {SetNewPassword} from "../../features/forgotPassword/SetNewPassword/SetNewPassword";
-import PacksList from "./PacksList/PacksList";
 
 export function Main() {
 
     const isLoggedIn = useAppSelector(state => state.profile.helpers.isLoggedIn)
+    const loadProfile = true
 
     return (
         <>
             <Routes>
                 <Route
                     path="/"
-                    element={<Profile isLoginIn={isLoggedIn}/>}
+                    element={<Profile
+                        loadProfile={loadProfile}
+                        isLoginIn={isLoggedIn}
+                    />}
                 />
                 <Route
                     path="/packs"
-                    element={<PacksList isLoginIn={isLoggedIn}/>}
+                    element={<Profile
+                        isLoginIn={isLoggedIn}
+                    />}
                 />
                 <Route
                     path="/login"

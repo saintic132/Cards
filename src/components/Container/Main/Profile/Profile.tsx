@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Profile.module.css'
 import {EditProfile} from "./UserProfile/EditProfile/EditProfile";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
@@ -7,12 +7,16 @@ import {UserProfile} from "./UserProfile/UserProfile";
 import {CardsFilter} from "./CardsFilter/CardsFilter";
 import {ProfilePacksList} from "./ProfilePacksList/ProfilePacksList";
 import {Redirect} from "../../../../common/Redirect/Redirect";
+import {PacksCardsFilter} from "../PacksList/PacksCardsFilter/PacksCardsFilter";
 
 type ProfilePropsType = {
     isLoginIn: boolean
+    loadProfile?: boolean
 }
 
-const Profile: React.FC<ProfilePropsType> = () => {
+const Profile: React.FC<ProfilePropsType> = ({loadProfile}: ProfilePropsType) => {
+
+    const [activePage, setActive] = useState<'all' | 'my'>('all');
 
     const profileData = useAppSelector(state => state.profile)
     const dispatch = useAppDispatch()
@@ -27,7 +31,7 @@ const Profile: React.FC<ProfilePropsType> = () => {
                 dispatch(setEditProfileAC(false))
             }
         }
-    },[profileData.helpers.editProfile, dispatch])
+    }, [profileData.helpers.editProfile, dispatch])
 
     if (profileData.helpers.editProfile) {
         return <EditProfile
@@ -42,20 +46,30 @@ const Profile: React.FC<ProfilePropsType> = () => {
             <div className={style.profile__body}>
                 <div className={style.profile__body_profile}>
 
-                    {/*Компонента с отрисовкой User*/}
-                    <UserProfile
-                        name={profileData.name}
-                        avatar={profileData.avatar}
-                        clickToEditProfile={clickToEditProfile}
-                    />
+                    {
+                        loadProfile
+                            ?
+                            <UserProfile
+                                name={profileData.name}
+                                avatar={profileData.avatar}
+                                clickToEditProfile={clickToEditProfile}
+                            />
+                            :
+                            <PacksCardsFilter
+                                activePage={activePage}
+                                setActive={setActive}
+                            />
+                    }
 
-                    {/*Компонента с отрисовкой фильра по количеству карт*/}
                     <CardsFilter/>
+
                 </div>
                 <div className={style.profile__body_main}>
 
-                    {/*Компонента с отрисовкой Профиля карточек*/}
-                    <ProfilePacksList/>
+                    <ProfilePacksList
+                        activePage={activePage}
+                    />
+
                 </div>
             </div>
         </div>
