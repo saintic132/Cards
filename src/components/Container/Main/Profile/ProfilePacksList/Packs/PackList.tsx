@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import style from './PackList.module.css'
 import {useAppDispatch, useAppSelector} from "../../../../../../store/store";
 import {getPacksTC} from "../../../../../../store/reducers/packs-reducer";
@@ -6,14 +6,17 @@ import SuperButton from '../../../../../../common/buttons/c2-SuperButton/SuperBu
 import sortIcon from '../../../../../../assets/img/sort/sort.png'
 import {Paginator} from "../../../../../../common/paginator/Paginator";
 
-export const PackList = () => {
 
+export const PackList = memo(() => {
+
+    const activeUserPacks = useAppSelector(state => state.packs.activeUserPacks)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const sortPacks = useAppSelector(state => state.packs.sortPacks)
     const searchTextValue = useAppSelector(state => state.packs.searchText)
     const packsTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const packsCountOnPage = useAppSelector(state => state.packs.pageCount)
     const page = useAppSelector(state => state.packs.page)
+    const userId = useAppSelector(state => state.profile._id)
 
 
     const dispatch = useAppDispatch()
@@ -23,8 +26,10 @@ export const PackList = () => {
     const [selectPageCount, setSelectPageCount] = useState(5);
 
     useEffect(() => {
-        dispatch(getPacksTC(searchTextValue, sortPacks, currentPage, selectPageCount))
-    }, [searchTextValue, sortPacks, currentPage, selectPageCount, dispatch])
+        if (activeUserPacks === 'userPacks') {
+            dispatch(getPacksTC(searchTextValue, sortPacks, currentPage, selectPageCount))
+        }
+    }, [activeUserPacks, searchTextValue, sortPacks, currentPage, selectPageCount, userId, dispatch])
 
     useEffect(() => {
         setCurrentPage(page)
@@ -111,4 +116,4 @@ export const PackList = () => {
         </div>
 
     )
-}
+})

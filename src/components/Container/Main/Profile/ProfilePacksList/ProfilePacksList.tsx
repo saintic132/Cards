@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import SuperInputText from "../../../../../common/buttons/c1-SuperInputText/SuperInputText";
 import style from "./ProfilePacksList.module.css";
 import {PackList} from "./Packs/PackList";
@@ -9,12 +9,13 @@ import {setSearchPacksValueAC} from "../../../../../store/reducers/packs-reducer
 import SuperButton from "../../../../../common/buttons/c2-SuperButton/SuperButton";
 
 type ProfilePacksListType = {
-    activePage?: 'all' | 'my'
+    loadProfile?: true
 }
 
-export const ProfilePacksList = ({activePage}: ProfilePacksListType) => {
+export const ProfilePacksList = memo(({loadProfile}: ProfilePacksListType) => {
 
     const dispatch = useAppDispatch()
+
     const [searchPack, setSearchPack] = useState<string>('');
     const debouncedValue = useDebounce<string>(searchPack, 750)
 
@@ -43,17 +44,19 @@ export const ProfilePacksList = ({activePage}: ProfilePacksListType) => {
                     src={search}
                     alt="search"/>
                 {
-                    activePage
-                    && <SuperButton
-                    className={style.profile__body_input_button}
+                    !loadProfile
+                    &&
+                    <SuperButton
+                        className={style.profile__body_input_button}
                     >
                         Add new pack
                     </SuperButton>
                 }
 
             </div>
-            {/*Компонента с отрисовкой Карточек*/}
-            <PackList/>
+
+            <PackList />
+
         </div>
     )
-}
+})

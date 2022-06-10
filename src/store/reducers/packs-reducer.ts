@@ -19,9 +19,10 @@ export type InitialPacksStateType = {
     pageCount: number
     sortPacks: string
     searchText: string
+    activeUserPacks: 'userPacks' | 'allPacks'
 }
 
-const initialState = {
+const initialPacksState: InitialPacksStateType = {
     cardPacks: [],
     cardPacksTotalCount: 0,
     maxCardsCount: 110,
@@ -29,7 +30,8 @@ const initialState = {
     page: 1,
     pageCount: 5,
     sortPacks: '0updated',
-    searchText: ''
+    searchText: '',
+    activeUserPacks: 'userPacks'
 }
 
 export enum ACTIONS_PROFILE_TYPE {
@@ -37,9 +39,10 @@ export enum ACTIONS_PROFILE_TYPE {
     SET_MIN_CARDS_FILTER_VALUE = 'PACKS/SET_MIN_CARDS_FILTER_VALUE',
     SET_MAX_CARDS_FILTER_VALUE = 'PACKS/SET_MAX_CARDS_FILTER_VALUE',
     SET_SEARCH_PACKS_VALUE = 'PACKS/SET_SEARCH_PACKS_VALUE',
+    SET_ACTIVE_USER_PACKS_ONLY = 'PACKS/SET_ACTIVE_USER_PACKS_ONLY',
 }
 
-export const packsReducer = (state: InitialPacksStateType = initialState, action: PacksActionsType): InitialPacksStateType => {
+export const packsReducer = (state: InitialPacksStateType = initialPacksState, action: PacksActionsType): InitialPacksStateType => {
     switch (action.type) {
         case ACTIONS_PROFILE_TYPE.SET_PACKS: {
             return {
@@ -68,6 +71,12 @@ export const packsReducer = (state: InitialPacksStateType = initialState, action
                 searchText: action.value
             }
         }
+        case ACTIONS_PROFILE_TYPE.SET_ACTIVE_USER_PACKS_ONLY: {
+            return {
+                ...state,
+                activeUserPacks: action.activePacks
+            }
+        }
         default:
             return state
     }
@@ -82,6 +91,8 @@ export const setMaxCardsFilterValueAC = (value: number) =>
     ({type: ACTIONS_PROFILE_TYPE.SET_MAX_CARDS_FILTER_VALUE, value} as const)
 export const setSearchPacksValueAC = (value: string) =>
     ({type: ACTIONS_PROFILE_TYPE.SET_SEARCH_PACKS_VALUE, value} as const)
+export const setActiveUserPacksOnlyAC = (activePacks: 'allPacks' | 'userPacks') =>
+    ({type: ACTIONS_PROFILE_TYPE.SET_ACTIVE_USER_PACKS_ONLY, activePacks} as const)
 
 //Types Actions
 
@@ -89,7 +100,8 @@ type SetPacksType = ReturnType<typeof setPacksAC>
 type SetMinCardsFilterValueType = ReturnType<typeof setMinCardsFilterValueAC>
 type SetMaxCardsFilterValueType = ReturnType<typeof setMaxCardsFilterValueAC>
 type SetSearchPacksValueType = ReturnType<typeof setSearchPacksValueAC>
-export type PacksActionsType = SetPacksType | SetMinCardsFilterValueType | SetMaxCardsFilterValueType | SetSearchPacksValueType
+type SetActiveUserPacksOnlyType = ReturnType<typeof setActiveUserPacksOnlyAC>
+export type PacksActionsType = SetPacksType | SetMinCardsFilterValueType | SetMaxCardsFilterValueType | SetSearchPacksValueType | SetActiveUserPacksOnlyType
 
 //Thunk
 

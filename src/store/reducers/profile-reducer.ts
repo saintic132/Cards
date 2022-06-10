@@ -16,7 +16,7 @@ export type FakeUserStateType = {
     rememberMe: boolean
 }
 
-const fakeUser = {
+const fakeUser: FakeUserStateType = {
     _id: '',
     email: '',
     name: '',
@@ -44,7 +44,7 @@ export type InitialProfileStateType = FakeUserStateType & {
     }
 }
 
-const initialState = {
+const initialState: InitialProfileStateType = {
     _id: '',
     email: '',
     name: '',

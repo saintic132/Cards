@@ -1,12 +1,20 @@
 import React, {memo} from 'react';
 import style from './PacksCardsFilter.module.css'
+import {useAppDispatch, useAppSelector} from "../../../../../store/store";
+import {setActiveUserPacksOnlyAC} from "../../../../../store/reducers/packs-reducer";
 
-type PacksCardsFilterType = {
-    activePage: string
-    setActive: (value: 'all' | 'my') => void
-}
+export const PacksCardsFilter = memo(() => {
 
-export const PacksCardsFilter = memo(({activePage, setActive}: PacksCardsFilterType) => {
+    const profileData = useAppSelector(state => state.packs.activeUserPacks)
+    const dispatch = useAppDispatch()
+
+    const changeActivePacksToUser = () => {
+        dispatch(setActiveUserPacksOnlyAC('userPacks'))
+    }
+
+    const changeActivePacksToAll = () => {
+        dispatch(setActiveUserPacksOnlyAC('allPacks'))
+    }
 
     return (
         <div className={style.packsCardsFilter__container}>
@@ -14,14 +22,14 @@ export const PacksCardsFilter = memo(({activePage, setActive}: PacksCardsFilterT
                 <h4>Show packs cards</h4>
                 <div className={style.packsCardsFilter__buttons}>
                     <div
-                        className={activePage === 'my' ? style.packsCardsFilter__active_field : style.packsCardsFilter__not_active_field}
-                        onClick={() => setActive('my')}
+                        className={profileData === 'userPacks' ? style.packsCardsFilter__active_field : style.packsCardsFilter__not_active_field}
+                        onClick={changeActivePacksToUser}
                     >
                         My
                     </div>
                     <div
-                        className={activePage === 'all' ? style.packsCardsFilter__active_field : style.packsCardsFilter__not_active_field}
-                        onClick={() => setActive('all')}
+                        className={profileData === 'allPacks' ? style.packsCardsFilter__active_field : style.packsCardsFilter__not_active_field}
+                        onClick={changeActivePacksToAll}
                     >
                         All
                     </div>
