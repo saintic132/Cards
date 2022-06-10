@@ -1,4 +1,11 @@
-h2 {
+.packs__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.packs__body h2 {
     margin: 0;
     font-style: normal;
     font-weight: 600;
@@ -9,8 +16,17 @@ h2 {
 
 .profile__body_input_search {
     margin-top: 15px;
-    width: 99%;
+    width: calc(100% - 25px);
     height: 36px;
     border: 1px solid rgba(99, 93, 128, .5);
     border-radius: 2px;
+    padding-left: 25px;
+}
+
+.profile__body_img_search {
+    position: absolute;
+    height: 13px;
+    width: 13px;
+    top: 61px;
+    left: 7px;
 }

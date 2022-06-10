@@ -1,9 +1,5 @@
-import axios, {AxiosResponse} from "axios";
-
-const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
+import {AxiosResponse} from "axios";
+import {instance} from "./settingsAPI";
 
 export const userAPI = {
     registration(email: string, password: string) {
@@ -57,7 +53,6 @@ export type RegistrationResponseType = {
     __v: number
     _id: string
 }
-
 export type User = {
     _id: string;
     email: string;
@@ -70,13 +65,11 @@ export type User = {
     verified: boolean
     rememberMe: boolean
 }
-
 type ResponseType<D = {}> = {
     token: string
     tokenDeathTime: number
     updatedUser: D
 }
-
 export type LoginType = {
     email: string
     password: string

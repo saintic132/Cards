@@ -88,6 +88,14 @@ export const Login = () => {
                                 <ErrorMessage name="password" component="div"
                                               className={style.login_error}/>
                             </div>
+                            <div className={style.login__edit_checkbox_container}>
+                                Remember Me
+                                <Field
+                                    className={style.login__edit_checkbox}
+                                    name='rememberMe'
+                                    type='checkbox'
+                                />
+                            </div>
                             {
                                 !register.helpers.errorMessage &&
                                 <div className={style.fakeDiv}/>
