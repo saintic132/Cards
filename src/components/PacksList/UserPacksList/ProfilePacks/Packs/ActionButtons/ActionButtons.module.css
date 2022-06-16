@@ -1,0 +1,15 @@
+.actionButtons__button_delete {
+    padding: 5px 6px;
+    background: #F1453D;
+    border-radius: 2px;
+    border: 2px solid red;
+    color: #FFFFFF;
+}
+
+.actionButtons__button_edit_learn {
+    padding: 5px 6px;
+    background: #D7D8EF;
+    border-radius: 2px;
+    border: 2px solid #D7D8EF;
+    color: #21268F;
+}

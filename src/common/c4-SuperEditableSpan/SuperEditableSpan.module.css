@@ -1,0 +1,14 @@
+.spanB {
+    display: inline-block;
+    color: #fff;
+    background: linear-gradient(to bottom, #00acee, #0072e0);
+    font-size: 18px;
+    font-weight: 500;
+    padding: 4px 7px;
+    border-radius: 5px;
+    margin: 10px;
+    /* Прозрачная граница, предназначенная для вывода варианта той же кнопки с обводкой */
+    border: 3px solid transparent;
+    text-decoration: none;
+}
+

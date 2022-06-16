@@ -1,13 +1,15 @@
-import SuperButton from "../../../common/buttons/c2-SuperButton/SuperButton";
 import style from './Login.module.css'
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {loginTC, setErrorToProfileAC} from "../../../store/reducers/profile-reducer";
-import {useAppDispatch, useAppSelector} from "../../../store/store";
 import * as Yup from 'yup';
-import show_pass from "../../../assets/img/show_hide_password/show.png";
-import hidden_pass from "../../../assets/img/show_hide_password/hidden.png";
+import show_pass from "../../../Common/img/show_hide_password/show.png";
+import hidden_pass from "../../../Common/img/show_hide_password/hidden.png";
 import React, {useEffect, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStoreType, useAppDispatch} from "../../../Bll/store";
+import SuperButton from '../../../Common/c2-SuperButton/SuperButton';
+import {loginTC, setErrorToProfileAC} from "../../../Bll/reducers/profile-reducer";
+import Preloader from "../../../Common/Preloader/Preloader";
 
 
 type FormikInputType = {
@@ -18,21 +20,24 @@ type FormikInputType = {
 
 export const Login = () => {
     const dispatch = useAppDispatch()
-    const register = useAppSelector(state => state.profile)
+    const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.profile.helpers.isLoggedIn)
+    const errorMessage = useSelector<AppStoreType, string | null>(state => state.profile.helpers.errorMessage)
+    const disableButton = useSelector<AppStoreType, boolean>(state => state.profile.helpers.disableButton)
+    const loadingStatus = useSelector<AppStoreType, boolean>(state => state.profile.helpers.loadingStatus)
     const [showPass, setShowPass] = useState<boolean>(false)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (register.helpers.isLoggedIn) {
+        if (isLoggedIn) {
             navigate('/')
         }
 
         return () => {
-            if (register.helpers.errorMessage) {
+            if (errorMessage) {
                 dispatch(setErrorToProfileAC(null))
             }
         }
-    }, [register.helpers.isLoggedIn, register.helpers.errorMessage, dispatch, navigate])
+    }, [isLoggedIn, errorMessage, dispatch, navigate])
 
     const initialValues: FormikInputType = {
         email: '',
@@ -47,7 +52,11 @@ export const Login = () => {
     })
 
     const onSubmit = (values: FormikInputType) => {
-        dispatch(loginTC(values.email, values.password, values.rememberMe))
+        dispatch(loginTC({email: values.email, password: values.password, rememberMe: values.rememberMe}))
+    }
+
+    if (loadingStatus) {
+        return <div style={{display: "flex", alignItems: 'center', height: '100vh'}}><Preloader /></div>
     }
 
     return (
@@ -97,13 +106,13 @@ export const Login = () => {
                                 />
                             </div>
                             {
-                                !register.helpers.errorMessage &&
+                                !errorMessage &&
                                 <div className={style.fakeDiv}/>
                             }
                             {
-                                register.helpers.errorMessage &&
+                                errorMessage &&
                                 <div className={style.login_server_error}>
-                                    {register.helpers.errorMessage}
+                                    {errorMessage}
                                 </div>
                             }
                             <div className={style.login__forgotPass}>
@@ -113,7 +122,7 @@ export const Login = () => {
                                 <SuperButton
                                     className={style.login__edit_buttonLogin}
                                     type='submit'
-                                    disabled={register.helpers.disableButton}
+                                    disabled={disableButton}
                                 >
                                     Login
                                 </SuperButton>
@@ -126,7 +135,7 @@ export const Login = () => {
                         Don't have an account?
                     </div>
                     <div className={style.login__sign_up}>
-                        <NavLink to='/register'>Sign Up</NavLink>
+                        <NavLink to='/registration'>Sign Up</NavLink>
                     </div>
                 </div>
             </div>

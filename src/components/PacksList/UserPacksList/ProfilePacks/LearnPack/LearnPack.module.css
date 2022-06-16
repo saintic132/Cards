@@ -1,0 +1,125 @@
+.learn {
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.learn__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.learn__header > img {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.learn__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    color: #2D2E46;
+    margin: 0 auto;
+}
+
+.learn__body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+
+}
+
+.learn__body > label {
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+    opacity: 0.5;
+}
+
+.learn__input {
+    margin-top: 8px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(36, 37, 74, .2);
+    padding: 5px 0;
+}
+
+.learn__input:focus {
+    outline: none;
+}
+
+.learn__buttons {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.learn__button_cancel {
+    max-width: 125px;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 30px;
+    background: #D7D8EF;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #21268F;
+    opacity: 0.8;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.learn__button_save {
+
+    max-width: 125px;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 30px;
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.learn__button_cancel:hover, .learn__button_save:hover {
+    cursor: pointer;
+}
+
+.learn__button_cancel:active, .learn__button_save:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+button:disabled,
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #6666
+}
+
+.learn_server_error {
+    max-width: 250px;
+    width: 100%;
+    color: red;
+    margin: 10px 0;
+}
+
+.fakeDiv {
+    margin: 10px 0;
+    height: 21px;
+}

@@ -1,97 +1,86 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 import style from './Paginator.module.css'
+import SuperButton from "../c2-SuperButton/SuperButton";
 
-type PaginatorPropsType = {
+type PaginatorType = {
     currentPage: number
-    allPacksCount: number
-    packsCountOnPage: number
-    setCurrentPage: (page: number) => void
-    selectPageCount: number
-    setSelectPageCount: (value: number) => void
-    portionPageSize?: number
+    totalItemsCount: number
+    pageSize: number
+    portionSize: number
+    changePageNumber: (page: number) => void
 }
 
-export function Paginator({
-                              currentPage,
-                              allPacksCount,
-                              packsCountOnPage,
-                              setCurrentPage,
-                              selectPageCount,
-                              setSelectPageCount,
-                              portionPageSize = 10
-                          }: PaginatorPropsType) {
+const Paginator = ({currentPage, totalItemsCount, pageSize, portionSize, changePageNumber}: PaginatorType) => {
 
-    const pagesCount = Math.ceil(allPacksCount / packsCountOnPage)
-
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
+    const onPageChange = (page: number) => {
+        changePageNumber(page)
     }
 
-    const portionCount = Math.ceil(pagesCount / portionPageSize)
-    const [portionNumber, setPortionNumber] = useState<number>(1)
-    const leftPortionNumber = (portionNumber - 1) * portionPageSize + 1
-    const rightPortionNumber = portionNumber * portionPageSize
+    let pagesCount = Math.ceil(totalItemsCount / pageSize) // делим все приходящие с сервера элементы на кол-во элементов отображаемых на одной странице
+
+    let pages = []; // каждый номер страницы
+
+    for (let i = 1; i <= pagesCount; i++) { // пробегаемся по кол-ву страниц и создаем для каждой соответствующую цифру в массиве
+        pages.push(i);
+    }
+
+    let portionCount = Math.ceil(pages.length / portionSize) // делим количество страниц из массива на размер порций (151 / 10) (порция - количество отображаемых на пагинаторе элементов (а справа и слева будут кнопки))
+    let [portionNumber, setPortionNumber] = useState<number>(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+    let rightPortionPageNumber = portionNumber * portionSize
 
     useEffect(() => {
-        setPortionNumber(Math.ceil(currentPage / portionPageSize))
-    }, [currentPage, portionPageSize])
-
-    const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectPageCount(+e.currentTarget.value)
-    }
+        setPortionNumber(Math.ceil(currentPage / portionSize))
+    }, [currentPage, portionSize])
 
     return (
-        <div className={style.paginator__container}>
-            <span className={style.paginator__count}>
-                {
-                    portionNumber > 1
-                        ? <div
-                            className={style.paginator__countByLeft}
-                            onClick={() => setPortionNumber(portionNumber - 1)}>
-                            &lt;
-                        </div>
-                        : <div className={style.fakeDiv}/>
-                }
-                {
-                    pages
-                        .filter(page => page >= leftPortionNumber && page <= rightPortionNumber)
-                        .map(page => {
-                            return (
-                                <span
-                                    key={page}
-                                    className={currentPage === page ? style.paginator__page_bold : style.paginator__page}
-                                    onClick={() => setCurrentPage(page)}
-                                >
-                                    {page}
-                                </span>
-                            )
-                        })
-                }
-                {
-                    portionCount > portionNumber
-                    && <div
-                        className={style.paginator__countBy}
-                        onClick={() => setPortionNumber(portionNumber + 1)}>
-                        &gt;
-                    </div>
-                }
-            </span>
-            <div className={style.paginator__count_per_page}>
-                Show
-                <div className={style.paginator__select_container}>
-                    <select
-                        className={style.paginator__select}
-                        value={selectPageCount}
-                        onChange={onChangeCallback}
-                    >
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={15}>15</option>
-                    </select>
-                </div>
-                <span>Cards per Page</span>
-            </div>
+        <div className={style.paginator}>
+
+            {
+                (portionNumber === 1) &&
+                <div
+                    className={style.fakeDiv}
+                />
+            }
+
+            {
+                portionNumber > 1 &&
+                <SuperButton
+                    className={style.prev_button}
+                    onClick={() => setPortionNumber(portionNumber - 1)}
+                >
+                    &lt;
+                </SuperButton>
+            }
+
+            {
+                pages
+                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                    .map((p) => {
+                        return (
+                            <div
+                                key={p}
+                                onClick={() => onPageChange(p)}
+                                className={p === currentPage ? style.active : style.pageNumber}
+                            >
+                                {p}
+                            </div>
+                        )
+                    })}
+
+            {
+                portionCount > portionNumber &&
+                <SuperButton
+                    className={style.next_button}
+                    onClick={() => setPortionNumber(portionNumber + 1)}
+                >
+                    &gt;
+                </SuperButton>
+            }
+
         </div>
     )
 }
+
+
+export default Paginator
