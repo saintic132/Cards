@@ -1,0 +1,55 @@
+.packsCardsFilter__container {
+    max-height: 160px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.packsCardsFilter__body {
+    width: 100%;
+    padding: 15px;
+    flex: 1 0 auto;
+}
+
+.packsCardsFilter__body h4 {
+    text-align: center;
+}
+
+.packsCardsFilter__buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.packsCardsFilter__not_active_field {
+    max-width: 95px;
+    width: 100%;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    background: #FFFFFF;
+    border-radius: 2px;
+}
+
+.packsCardsFilter__active_field {
+    max-width: 95px;
+    width: 100%;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    background: #9A91C8;
+    border-radius: 0 2px 2px 0;
+    color: #FFFFFF;
+}

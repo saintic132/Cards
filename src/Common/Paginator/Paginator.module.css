@@ -1,0 +1,60 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.prev_button {
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.next_button {
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.pageNumber {
+    padding: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageNumber:hover {
+    cursor: pointer;
+}
+
+.active {
+    width: 24px;
+    height: 24px;
+    background-color: #21268F;
+    color: white;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fakeDiv {
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+}

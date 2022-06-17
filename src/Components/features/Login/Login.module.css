@@ -1,0 +1,200 @@
+.login__container {
+    max-width: 415px;
+    width: 100%;
+    background-color: #F9F9FE;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.login__edit_body {
+    padding: 30px;
+    max-width: 415px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__edit_body h2 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    align-self: center;
+}
+
+.login__form_body {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.login__edit {
+    position: relative;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__edit > label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+}
+
+.login__edit_buttons {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.login__edit_input {
+    margin-top: 8px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(36, 37, 74, .2);
+    padding: 5px 0;
+}
+
+.login__edit_input:focus {
+    outline: none;
+}
+
+.login__edit_checkbox_container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login__edit_checkbox {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+}
+
+.login__show_hide_pass {
+    cursor: pointer;
+    position: absolute;
+    bottom: 11px;
+    height: 16px;
+    right: 0;
+    top: 33px;
+}
+
+.login__forgotPass {
+    margin: 50px 20px 0 0;
+    text-align: right;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2D2E46;
+}
+
+.login__forgotPass > a {
+    text-decoration: none;
+    color: #2D2E46;
+}
+
+.login__forgotPass > a:hover {
+    text-decoration: underline;
+}
+
+.login__forgotPass > a:visited {
+    color: #2D2E46;
+}
+
+.login__edit_buttonLogin {
+    max-width: 266px;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 30px;
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.login__edit_buttonLogin:hover {
+    cursor: pointer;
+}
+
+.login__edit_buttonLogin:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+
+button:disabled,
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #6666
+}
+
+.login_sign_up_container {
+    margin-top: 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__sign_up_account {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: #2D2E46;
+    opacity: 0.5;
+}
+
+.login__sign_up {
+    margin-top: 11px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #21268F;
+    text-decoration: none;
+}
+
+.login__sign_up > a {
+    text-decoration: none;
+    color: #2D2E46;
+}
+
+.login__sign_up > a:hover {
+    text-decoration: underline;
+}
+
+.login__sign_up > a:visited {
+    color: #2D2E46;
+}
+
+
+/*Error field show*/
+
+.login_error {
+    color: red;
+}
+
+.login_server_error {
+    max-width: 250px;
+    width: 100%;
+    color: red;
+    margin: 10px 0;
+}
+
+.fakeDivAvatarUrl {
+    height: 35px;
+}
+
+.fakeDiv {
+    margin: 10px 0;
+    height: 21px;
+}
